@@ -1,0 +1,96 @@
+{
+    "weaponTypes": [
+        {
+            "_id": 1,
+            "name": "Long Sword"
+        },
+        {
+            "_id": 2,
+            "name": "Great Sword"
+        },
+        {
+            "_id": 3,
+            "name": "Hammer"
+        },
+        {
+            "_id": 4,
+            "name": "Hunting Horn"
+        }
+    ],
+    "monsters": [
+        {
+            "_id": 1,
+            "name": "Rathalos",
+            "element": "Fire",
+            "ailments": ["Ice","Poison"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/8/8c/MHW-Rathalos_Icon.png/revision/latest?cb=20180126200205"
+        },
+        {
+            "_id": 2,
+            "name": "Rathian",
+            "element": "Poison",
+            "ailments": ["Fire"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/c/ce/Rathian_Icon.png/revision/latest?cb=20130218180639"
+        },
+        {
+            "_id": 3,
+            "name": "Yian Kut-ku",
+            "element": "Fire",
+            "ailments": ["Fireblight"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/f/f6/Yian_Kut_Ku_Icon.png/revision/latest?cb=20130218180709"
+        },
+        {
+            "_id": 4,
+            "name": "Anjanath",
+            "element": "Fire",
+            "ailments": ["Ice"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/5/58/MHW-Anjanath_Icon.png/revision/latest?cb=20180121011603"
+        },
+        {
+            "_id": 5,
+            "name": "Diablos",
+            "element": "Stun",
+            "ailments": ["Dragon","Ice","Water"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/4/47/MHW-Diablos_Icon.png/revision/latest?cb=20180128062821"
+        },
+        {
+            "_id": 6,
+            "name": "Dodogama",
+            "element": "Fire",
+            "ailments": ["Thunder","Water"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/3/3e/MHW-Dodogama_Icon.png/revision/latest?cb=20180127022935"
+        },
+        {
+            "_id": 7,
+            "name": "Deviljho",
+            "element": "Dragon",
+            "ailments": ["Dragon","Thunder"],
+            "imgUrl": "https://pre00.deviantart.net/946e/th/pre/i/2017/289/7/b/monster_hunter___deviljho_icon_sticker_by_amateuranime24-dbqrve4.png"
+        },
+        {
+            "_id": 8,
+            "name": "Tigrex",
+            "element": "None",
+            "ailments": ["Dragon","Thunder"],
+            "imgUrl": "https://vignette.wikia.nocookie.net/monsterhunter/images/a/a6/Tigrex_Icon.png/revision/latest?cb=20130218180953"
+        }
+    ],
+    "weapons": [
+        {
+            "_id": 1,
+            "name": "Iron Long Sword",
+            "element": "",
+            "damage": 100,
+            "sharpness": "green",
+            "type": "Long Sword"
+        },
+        {
+            "_id": 2,
+            "name": "Iron Hammer",
+            "element": "",
+            "damage": 100,
+            "sharpness": "green",
+            "type": "Hammer"
+        }
+    ]
+}

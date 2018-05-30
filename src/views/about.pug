@@ -1,0 +1,13 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/styles.css")
+    body
+        nav
+            each navOption in navOptions
+                a(href=navOption.path)=navOption.name
+        div(class=["container"])
+            h1(id="title")= title
+            div(class="about")
+                p= "This is Mr. Fox's Monster Hunter Demo Project"
+        script(src="/js/scripts.js")

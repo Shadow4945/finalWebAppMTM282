@@ -1,0 +1,28 @@
+{
+  "name": "nodedemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "eho \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "jquery": "^3.3.1",
+    "mongodb": "^3.1.0-beta4",
+    "nodemon": "^1.17.5",
+    "pug": "^2.0.3"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": 2500
+  }
+}

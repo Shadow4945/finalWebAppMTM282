@@ -1,0 +1,30 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/styles.css")
+    body
+        nav
+            each navOption in navOptions
+                a(href=navOption.path)=navOption.name
+        div(class=["container"])
+            h1(id="myH1")= title
+            p= "Below are all the monsters that we have so far!"
+            div(class="monsterList")
+                each monster in monsters
+                    div(class="monsterBox")
+                        div(class="left")
+                            a(href="/mh/monster/"+monster.name)
+                                img(src=monster.imgUrl,class=["monsterIcon","left"])
+                        div(class="left")
+                            div(class="monsterName")
+                                a(href="/mh/monster/"+monster.name)=monster.name
+                            div
+                                div(class=["left","padRight"])
+                                    h3="Element"
+                                    div=monster.element
+                                div(class=["left","padRight"])
+                                    h3="Ailments"
+                                    ul
+                                        each i in monster.ailments
+                                            li=i
+        script(src="/js/scripts.js")
