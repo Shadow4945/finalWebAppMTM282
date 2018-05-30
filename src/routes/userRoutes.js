@@ -4,9 +4,18 @@ var mongodb = require('mongodb');
 
 var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
-var databaseName = "monsterHunter";
+var databaseName = "messageBoard";
 
 var router = express.Router();
+//TODO: Remove demo routes
+//      Change Nav to reflect regular user nav bar links
+//      Add GET that renders newPost page
+//      Add POST that saves user's post to database
+//      Add GET that allows user to delete their own post
+//      Add route that allows user to edit their own post
+//      Add GET to render user's account details
+//      Add route that allows user to edit their account details
+//      Add POST for logout
 
 var nav = [{
     "name": "Home",

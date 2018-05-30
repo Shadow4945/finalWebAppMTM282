@@ -3,6 +3,14 @@ var fs = require('fs');
 
 var router = express.Router();
 
+//TODO: Remove demo routes
+//      Change Nav to reflect logged out user nav bar links
+//      GET that renders home page
+//      GET that renders login
+//      POST that allows users to login & redirects to proper view
+//      GET that renders create account
+//      POST that saves new account info to database & redirects to proper view
+
 var nav = [{
     "name": "Home",
     "path": "/"
