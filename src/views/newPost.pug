@@ -9,14 +9,14 @@ html
         div(class="newPost")
             h1(id="myH1")= title
             p= "Submit a new post"
-        form(id='form', method='post', action='/newPost')
-            label Post Subject:
-            br
-            input(type='text', name='subject')
-            br
-            label Thread:
-            br
-            input(type='text', name='thread')
-            br
-            input(type='submit', value='submit')
+            form(id='form', method='post', action='/newPost')
+                label Post Subject:
+                br
+                input(type='text', name='subject')
+                br
+                label Thread:
+                br
+                input(type='text', name='thread')
+                br
+                input(type='submit', value='submit')
         script(src="/js/scripts.js")
