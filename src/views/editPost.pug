@@ -1,0 +1,22 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/styles.css")
+    body
+        nav
+            each navOption in navOptions
+                a(href=navOption.path)=navOption.name
+        div(class="editPost")
+            h1(id="myH1")= title
+            p= "Edit your post."
+            form(id='form', method='post', action='/editPost')
+                label Post Subject:
+                br
+                input(type='text', name='editSubject', value=currentPost.subject)
+                br
+                label Thread:
+                br
+                input(type='text', name='editThread', value=currentPost.thread)
+                br
+                input(type='submit', value='Update')
+        script(src="/js/scripts.js")
