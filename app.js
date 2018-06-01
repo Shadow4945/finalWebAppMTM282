@@ -14,7 +14,7 @@ app.use("/user/", userRoutes);
 var adminRoutes = require('./src/routes/adminRoutes');
 app.use("/admin/", adminRoutes);
 
-var checkAuth = function(req, rest, next) {
+var checkAuth = function(req, res, next) {
     if(req.session.user && req.session.user.isAuthenticatied) {
         next();
     }else{
@@ -55,7 +55,6 @@ app.get('/logout', function(req, res){
 
 //TODO: Change to validate that user exists in DB
 app.post('/login', urlencodedParser, function(req, res){
-    console.log(req.body.username);
     if(req.body.username=='user' && req.body.pass=='password'){
         req.session.user={
             isAuthenticatied: true,

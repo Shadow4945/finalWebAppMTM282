@@ -32,8 +32,8 @@ var nav = [{
     "path": "/mh/addMonster"
 }
 ,{
-    "name": "Reload Data",
-    "path": "/admin/reloadData"
+    "name": "Log Out",
+    "path": "/logout"
 }
 ];
 
