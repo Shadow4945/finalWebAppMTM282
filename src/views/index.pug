@@ -2,11 +2,14 @@ html
     head
         title= title
         link(rel="stylesheet", href="/css/styles.css")
+        div(class="login")
+            a(href="/login") Login
+            a(href="/createAccount") Create Account
     body
         nav
             each navOption in navOptions
                 a(href=navOption.path)=navOption.name
-        div(class=["container"])
+        div(class="index")
             h1(id="myH1")= title
-            p= "Welcome to the Monster Hunter Express/Pug/MongoDB Demo!"
+            p= "Welcome to the Messages of the World!"
         script(src="/js/scripts.js")
