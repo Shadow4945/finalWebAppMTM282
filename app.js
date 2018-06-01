@@ -25,7 +25,7 @@ app.use(expressSession({
     resave: true
 }));
 
-var urlencodedParser = bodyParse.urlencoded({extend:false});
+var urlencodedParser = bodyParser.urlencoded({extend:false});
 
 app.get('/login', function(req, res){
     res.render('login');
