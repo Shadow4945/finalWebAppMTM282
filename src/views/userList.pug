@@ -1,0 +1,38 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/styles.css")
+    body
+        nav
+            each navOption in navOptions
+                a(href=navOption.path)=navOption.name
+        div(class="userList")
+            h1(id="myH1")= title
+            each user in users
+                table
+                    tr
+                        th Username
+                    tr
+                        td #{user.username}
+                table
+                    tr
+                        th Email
+                    tr
+                        td #{user.email}
+                table
+                    tr
+                        th Password
+                    tr
+                        td #{user.password}
+                table
+                    tr
+                        th Age
+                    tr
+                        td #{user.age}
+                table
+                    tr
+                        th Role
+                    tr
+                        td #{user.role}
+                table
+    script(src="/js/scripts.js")
