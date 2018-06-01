@@ -4,16 +4,33 @@ html
   body
     h3 Create an account
     form(id='form', method='post', action='/createAccount')
-      label New Username:
-      br
-      input(type='text', name='newUsername')
-      br
-      label New Password:
-      br
-      input(type='password', name='newPass')
-      br
-    label Confirm Password:
-      br
-      input(type='password', name='confirmPass')
-      br
-      input(type='submit', value='submit')
+        label New Username:
+        br
+        input(type='text', name='newUsername')
+        br
+        label Email:
+        br
+        input(type='email', name='email')
+        br
+        label Profile Picture
+        br
+        input(type='file', name='image')
+        br
+        label Age:
+        br
+        input(type='number', name='age')
+        br
+        span User
+        input(type='radio', name='user', value='user')
+        br
+        span Admin
+        input(type='radio', name='admin', value='admin')
+        label New Password:
+        br
+        input(type='password', name='newPass')
+        br
+        label Confirm Password:
+        br
+        input(type='password', name='confirmPass')
+        br
+        input(type='submit', value='submit')
