@@ -1,0 +1,22 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/styles.css")
+    body
+        nav
+            each navOption in navOptions
+                a(href=navOption.path)=navOption.name
+        div(class="newPost")
+            h1(id="myH1")= title
+            p= "Submit a new post"
+        form(id='form', method='post', action='/newPost')
+            label Post Subject:
+            br
+            input(type='text', name='subject')
+            br
+            label Thread:
+            br
+            input(type='text', name='thread')
+            br
+            input(type='submit', value='submit')
+        script(src="/js/scripts.js")
