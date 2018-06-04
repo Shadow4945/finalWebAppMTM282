@@ -11,12 +11,12 @@ html
             label Post Subject:
             br
             p
-                | #{messages.title}
+                | #{message.title}
             br
             p
-                | Posted by: #{users.avatar_img} #{users.name} on #{messages.date_posted}
+                | Posted by: #{user.avatar_img} #{user.username} on #{message.date_posted}
             label Thread:
             br
             p
-                | #{messages.body}
+                | #{message.body}
         script(src="/js/scripts.js")

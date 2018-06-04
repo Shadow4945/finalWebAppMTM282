@@ -126,14 +126,15 @@ router.route("/users").get(
 
                 var users = await db.collection("users").find().toArray();
                 
-                console.log(users);
+                //console.log(users);
 
-                var model = { 
+                var data = { 
                     title: "User List",
                     navOptions : nav,
                     userList: users
                 };
-                res.render("userList", model);
+                console.log(data);
+                res.render("userList", data);
             }catch(err){
                 console.log("Error in /users");
                 console.log(err);
