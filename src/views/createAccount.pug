@@ -7,35 +7,35 @@ html
       h1(id="myH1")= title
       p= 'Enter the information below to create your new account!'
       form(id='form', method='post', action='/createAccount')
-          label New Username:
-          br
-          input(type='text', name='newUsername')
-          br
-          label Email:
-          br
-          input(type='email', name='email')
-          br
-          label Profile Picture
-          br
-          input(type='file', name='image')
-          br
-          label Age:
-          br
-          input(type='number', name='age')
-          br
-          label Role:
-          br
-          span User
-          input(type='radio', name='user', value='user')
-          br
-          span Admin
-          input(type='radio', name='admin', value='admin')
-          label New Password:
-          br
-          input(type='password', name='newPass')
-          br
-          label Confirm Password:
-          br
-          input(type='password', name='confirmPass')
-          br
-          input(type='submit', value='Create Account')
+        label New Username:
+        br
+        input(type='text', name='newUsername')
+        br
+        label Email:
+        br
+        input(type='email', name='email')
+        br
+        label Profile Picture
+        br
+        input(type='url', name='image')
+        br
+        label Age:
+        br
+        input(type='text', name='age')
+        br
+        label Role:
+        br
+        span User
+        input(type='radio', name='role', value='user')
+        br
+        span Admin
+        input(type='radio', name='role', value='admin')
+        br
+        label New Password:
+        br
+        input(type='password', name='newPass')
+        br
+        label Confirm Password:
+        br
+        input(type='password', name='confirmPass')
+      input(type='submit', value='Create Account')

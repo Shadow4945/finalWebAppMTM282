@@ -12,11 +12,11 @@ html
             form(id='form', method='post', action='/editPost')
                 label Post Subject:
                 br
-                input(type='text', name='editSubject', value=currentPost.subject)
+                input(type='text', name='editSubject', value=currentPost.title)
                 br
-                label Thread:
+                label Body:
                 br
-                input(type='text', name='editThread', value=currentPost.thread)
+                input(type='text', name='editThread', value=currentPost.body)
                 br
                 input(type='submit', value='Update')
         script(src="/js/scripts.js")
