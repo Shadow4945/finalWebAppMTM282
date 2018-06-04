@@ -10,14 +10,14 @@ var databaseName = "message_board";
 
 var router = express.Router();
 //TODO: Remove demo routes
-//      Change Nav to reflect regular user nav bar links
-//      Add GET that renders newPost page
-//      Add POST that saves user's post to database
-//      Add GET that allows user to delete their own post
-//      Add route that allows user to edit their own post
-//      Add GET to render user's account details
-//      Add route that allows user to edit their account details
-//      Add POST for logout
+//      Change Nav to reflect regular user nav bar links - DONE
+//      Add GET that renders newPost page - DONE
+//      Add POST that saves user's post to database - DONE
+//      Add GET that allows user to delete their own post - DONE
+//      Add route that allows user to edit their own post - DONE
+//      Add GET to render user's account details - DONE
+//      Add route that allows user to edit their account details - DONE
+//      Add POST for logout - Need session destroy
 
 /*Format for posts in database
     title: "x",
@@ -40,20 +40,108 @@ var nav = [{
     "path": "/"
 },
 {
-    "name": "About",
-    "path": "/about"
+    "name": "New Post",
+    "path": "/user/newPost"
 },{
-    "name": "Monsters",
-    "path": "/mh/monsters"
+    "name": "All Posts",
+    "path": "/user/posts"
 },{
-    "name": "Add Monster",
-    "path": "/mh/addMonster"
+    "name": "Account",
+    "path":"/user/accountDetails"
 }
 ,{
     "name": "Log Out",
     "path": "/logout"
 }
 ];
+
+//ACCOUNT DETAILS
+router.route("/accountDetails").get(
+    function(req,res){
+        console.log("Account Details!");
+
+       (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var currentUser = await db.collection("users").findOne({/*INSERT QUERY HERE*/});
+                
+                var model = {
+                    title: "Account Details",
+                    navOptions : nav,
+                    currentUser: currentUser
+                };
+                res.render("accountDetails", model);
+                
+            }catch(err){
+                console.log("Mongo Error!");
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+    }
+)
+
+//EDIT ACCOUNT GET
+router.route("/editAccountDetails").get(
+    function(req,res){
+        console.log("Edit Account Details!");
+
+       (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var currentUser = await db.collection("users").findOne({/*INSERT QUERY HERE*/});
+                
+                var model = {
+                    title: "Account Details",
+                    navOptions : nav,
+                    currentUser: currentUser
+                };
+                res.render("editAccountDetails", model);
+                
+            }catch(err){
+                console.log("Mongo Error!");
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+    }
+)
+
+//EDIT ACCOUNT POST
+router.route("/editAccountDetails").post(
+    function(req,res){
+        console.log("Changing Account Details!");
+
+        (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var user = {"_id": "bob" /*USER ID HERE*/};
+                var newValues = {$set: {username: req.body.newUsername, email:req.body.newEmail, age:req.body.newAge}};
+                await db.collection("users").updateOne(user,newValues);
+                
+
+            res.redirect("/");
+                
+            }catch(err){
+                console.log("Mongo Error!");
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+    }
+)
 
 router.route("/newPost").get(
     function(req, res){
@@ -96,6 +184,63 @@ router.route("/newPost").post(
         }());
     }
 );
+
+//EDIT POST GET
+router.route("/editPost/:name").get(
+    function(req,res){
+        console.log("Edit Post");
+
+       (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var currentPost = await db.collection("messages").findOne({"title":req.params.name});
+                
+                var model = {
+                    title: "Account Details",
+                    navOptions : nav,
+                    currentPost: currentPost
+                };
+                res.render("editPost", model);
+                
+            }catch(err){
+                console.log("Mongo Error!");
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+    }
+)
+
+//POST EDIT POST
+router.route("/editPost/:name").post(
+    function(req,res){
+        console.log("Updating Post");
+
+       (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var post = {"name": req.params.name};
+                var newValues = {$set: {name: req.body.editName, body: req.body.editThread}};
+                await db.collection("users").updateOne(post,newValues);
+
+                
+                res.redirect("/");   
+            }catch(err){
+                console.log("Mongo Error!");
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+    }
+)
 
 router.route("/deletePost/:title").get(
     function(req, res){
@@ -178,5 +323,12 @@ router.route("/posts").get(
         }());
     }
 );
+
+//LOGOUT
+router.route("/logout").post(
+    function(req,res){
+        res.redirect("/");
+    }
+)
 
 module.exports = router;
