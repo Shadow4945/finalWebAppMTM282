@@ -22,13 +22,13 @@
             "title":"First post",
             "body": "This is a test for the first post",
             "date_posted":"5/31/18",
-            "createdBy":"*insert user identifier here*"
+            "createdBy":"bob"
         },
         {
             "title":"Second post",
             "body": "This is a test for the second post",
             "date_posted":"6/4/18",
-            "createdBy":"*insert user identifier here*"
+            "createdBy":"bob"
         }
     ]
 }

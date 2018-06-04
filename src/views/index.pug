@@ -15,5 +15,6 @@ html
             div(class='threads')
                 each thread in threads
                     ul
-                        li= thread.title
+                        li
+                            a(href="/user/post/" + thread.title) #{thread.title}
         script(src="/js/scripts.js")

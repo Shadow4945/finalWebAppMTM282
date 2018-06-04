@@ -14,7 +14,9 @@ html
                 | #{message.title}
             br
             p
-                | Posted by: #{user.avatar_img} #{user.username} on #{message.date_posted}
+                | Posted by:
+                img(src=user.avatar_img)
+                | #{user.username} on #{message.date_posted}
             label Thread:
             br
             p

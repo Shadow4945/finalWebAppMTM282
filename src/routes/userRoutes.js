@@ -276,7 +276,7 @@ router.route("/post/:name").get(
                 var db = client.db(databaseName);
 
                 var post = await db.collection("messages").findOne({"title":req.params.name});
-                var userInfo = await db.collection("users").findOne({"_id":post.createdBy});
+                var userInfo = await db.collection("users").findOne({"username":post.createdBy});
 
                 // console.log(userInfo);
                 var model = {
