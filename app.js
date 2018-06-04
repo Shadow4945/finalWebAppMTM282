@@ -14,8 +14,15 @@ app.use("/user/", userRoutes);
 var adminRoutes = require('./src/routes/adminRoutes');
 app.use("/admin/", adminRoutes);
 
-app.use(express.static(__dirname + "/public"));
+var checkAuth = function(req, res, next) {
+    if(req.session.user && req.session.user.isAuthenticatied) {
+        next();
+    }else{
+        res.redirect('/');
+    }
+}
 
+app.use(express.static(__dirname + "/public"));
 app.set('views', './src/views');
 app.set('view engine', 'pug');
 
@@ -25,13 +32,17 @@ app.use(expressSession({
     resave: true
 }));
 
-var urlencodedParser = bodyParser.urlencoded({extend:false});
+
+var urlencodedParser = bodyParser.urlencoded({extended:false});
 
 app.get('/login', function(req, res){
     res.render('login');
 });
 
-//TODO: Add route for user-only pages
+//TODO: Change route for user-only pages
+app.get('/accountDetails', checkAuth, function(req, res){
+    res.render('accountDetails');
+});
 
 app.get('/logout', function(req, res){
     req.session.destroy(function(err){
@@ -43,7 +54,18 @@ app.get('/logout', function(req, res){
     });
 });
 
-//TODO: Add POST for user authentication
+//TODO: Change to validate that user exists in DB
+app.post('/login', urlencodedParser, function(req, res){
+    if(req.body.username=='user' && req.body.pass=='password'){
+        req.session.user={
+            isAuthenticatied: true,
+            username: req.body.username
+        };
+        res.redirect('/accountDetails');
+    }else{
+        res.redirect('/');
+    }
+});
 
 app.listen(3000, function(){
     console.log("Express Listening on Port: 3000");

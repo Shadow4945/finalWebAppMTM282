@@ -12,4 +12,8 @@ html
         div(class="index")
             h1(id="myH1")= title
             p= "Welcome to the Messages of the World!"
+            div(class='threads')
+                each thread in threads
+                    ul
+                        li= thread.title
         script(src="/js/scripts.js")

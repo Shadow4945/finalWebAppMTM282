@@ -1,15 +1,17 @@
 html
   head
-    title Login
+    title= title
+    link(rel="stylesheet", href="/css/styles.css")
   body
-    h3 Name Entry
-    form(id='form', method='post', action='/login')
-        label Username:
-        br
-        input(type='text', name='username')
-        br
-        label Password:
-        br
-        input(type='password', name='pass')
-        br
-        input(type='submit', value='submit')
+    div(class='login')
+      h1(id="myH1")= title
+      form(id='form', method='post', action='/login')
+          label Username:
+          br
+          input(type='text', name='username')
+          br
+          label Password:
+          br
+          input(type='password', name='pass')
+          br
+          input(type='submit', value='submit')
