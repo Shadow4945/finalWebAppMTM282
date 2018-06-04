@@ -11,7 +11,6 @@ var router = express.Router();
 //TODO: Remove demo routes
 //      Change Nav to reflect logged out user nav bar links
 //      GET that renders home page
-//      GET that renders login
 //      POST that allows users to login & redirects to proper view
 //      GET that renders create account
 //      POST that saves new account info to database & redirects to proper view
@@ -116,6 +115,42 @@ router.route("/logout").get(
             }
         });
     }
-)
+);
 
+router.route("/createAccount").get(
+    function (req, res) {
+        var model = {
+            title: "Create Account"
+            //insert nav
+        };
+
+        res.render("createAccount", model);
+    }
+);
+
+
+router.route("/createAccount").post(
+    function(req, res){
+        (async function mongo() {
+            try{
+                //validate:
+                    //email
+                    //password
+                    var passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/gm;
+                    var password = req.body.newPass;
+                    var passwordErr = document.getElementById('passwordErr');
+                    console.log(req.body.newPass);
+                    if(passwordRegex.test(password) == false){
+                        passwordErr.textContent = "Invalid Password";
+                    }
+                    //password confirm
+                //add new user to the database
+            } catch(err){
+                console.log(err);
+            } finally {
+                client.close();
+            }
+        }());
+    }
+ );
 module.exports = router;

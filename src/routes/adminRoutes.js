@@ -31,16 +31,12 @@ var nav = [{
 
 //TODO: Remove demo routes
 //      Add admin nav bar variable
-//      GET route to reloadData
-//      GET route to loadData
-//      GET route to dropData
 //      Add GET that renders newPost page
 //      Add POST that saves admin's post to database
 //      Add GET that allows admin to delete any post
 //      Add route that allows admin to edit their own post
 //      Add GET to render admin's account details
 //      Add route that allows admin to edit their account details
-//      Add GET to render user list
 //      Add GET to delete user accounts in the user list
 //      Add POST for logout
 
