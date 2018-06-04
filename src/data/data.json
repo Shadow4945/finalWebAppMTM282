@@ -3,7 +3,7 @@
         {
             "username":"admin",
             "password": "pass",
-            "avatar_img": "",
+            "avatar_img": "https://api.adorable.io/avatars/285/abott@adorable.png",
             "email":"admin@admin.com",
             "age": "42",
             "type": "admin"
@@ -11,7 +11,7 @@
         {
             "username":"bob",
             "password": "pass",
-            "avatar_img": "",
+            "avatar_img": "https://api.adorable.io/avatars/285/abott@adorable.png",
             "email":"bob@user.com",
             "age": "12",
             "type": "user"
