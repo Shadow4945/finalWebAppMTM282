@@ -153,12 +153,6 @@ router.route("/createAccount").post(
                 var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
                 var password = req.body.newPass;
 
-                //if username length is less than 2 or exists in db print error
-                //if email doesn't match the regex or exists in db print error
-                //if age doesn't match the regex print error
-                //if user type button isn't selected, print error
-                //if password doesn't match regex print error
-                //if confirm password doesn't match password print error
                 if(req.body.newUsername.length < 2 || existingUser) {
                     usernameError = "Invalid username";
                 } 
@@ -175,7 +169,7 @@ router.route("/createAccount").post(
                 if(passwordRegex.test(password) == false){
                     passError = "Password must be at least 8 characters, have 1 capital, 1 digit, and 1 special character";
                 }
-                if(req.body.confirmPass != passError){
+                if(req.body.confirmPass != password){
                     confirmError = "Passwords don't match";
                 }
                 
