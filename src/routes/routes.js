@@ -53,6 +53,7 @@ router.route("/").get(
                     navOptions : nav,
                     threads: posts
                 };
+                console.log(data);
                 res.render("index", data);
             }catch(err){
                 res.send(err);

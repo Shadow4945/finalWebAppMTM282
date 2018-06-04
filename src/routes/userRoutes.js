@@ -138,7 +138,7 @@ router.route("/post/:name").get(
                     navOptions : nav,
                     message: post
                 };
-                res.render("monster", model);
+                res.render("viewPost", model);
             }catch(err){
                 console.log("Mongo Error!");
                 res.send(err);
