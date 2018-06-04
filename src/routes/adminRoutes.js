@@ -37,11 +37,10 @@ router.route("/reLoadData").get(
         
                 db.dropDatabase(databaseName)
                 
-                var result1 = await db.collection("monsters").insertMany(fileData.monsters);
-                var result2 = await db.collection("weapons").insertMany(fileData.weapons);
-                var result3 = await db.collection("weaponTypes").insertMany(fileData.weaponTypes);
-                
-                res.json([result1, result2, result3]);
+                var result1 = await db.collection("users").insertMany(fileData.users);
+                var result2 = await db.collection("messages").insertMany(fileData.messages);
+
+                res.json([result1, result2]);
             }catch(err){
                 res.send(err);
             }finally{
@@ -62,11 +61,11 @@ router.route("/loadData").get(
                 var client = await mongoClient.connect(url);
                 var db = client.db(databaseName);
         
-                var result1 = await db.collection("monsters").insertMany(fileData.monsters);
-                var result2 = await db.collection("weapons").insertMany(fileData.weapons);
-                var result3 = await db.collection("weaponTypes").insertMany(fileData.weaponTypes);
+                var result1 = await db.collection("users").insertMany(fileData.users);
+                var result2 = await db.collection("messages").insertMany(fileData.messages);
                 
-                res.json([result1, result2, result3]);
+                
+                res.json([result1, result2]);
             }catch(err){
                 res.send(err);
             }finally{
