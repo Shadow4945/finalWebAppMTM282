@@ -1,10 +1,12 @@
 var express = require('express');
 var fs = require('fs');
 var mongodb = require('mongodb');
+var bodyParser = require('body-parser');
 
 var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 var databaseName = "message_board";
+
 
 var router = express.Router();
 
@@ -14,6 +16,9 @@ var router = express.Router();
 //      POST that allows users to login & redirects to proper view
 //      GET that renders create account
 //      POST that saves new account info to database & redirects to proper view
+router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.json());
+
 
 var nav = [{
     "name": "Home",
@@ -121,8 +126,10 @@ router.route("/logout").get(
 router.route("/createAccount").get(
     function (req, res) {
         var model = {
-            title: "Create Account"
+            title: "Create Account",
             //insert nav
+            passErrorMsg: "",
+            confirmErrorMsg: ""
         };
 
         res.render("createAccount", model);
@@ -134,18 +141,55 @@ router.route("/createAccount").post(
     function(req, res){
         (async function mongo() {
             try{
-                //validate:
-                    //email
-                    //password
-                    var passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/gm;
-                    var password = req.body.newPass;
-                    var passwordErr = document.getElementById('passwordErr');
-                    console.log(req.body.newPass);
-                    if(passwordRegex.test(password) == false){
-                        passwordErr.textContent = "Invalid Password";
-                    }
-                    //password confirm
-                //add new user to the database
+                var client = await mongoClient.connect(url);
+                var db = client.db(databaseName);
+                var existingUser = await db.collection("users").findOne({ "username": req.body.newUsername });
+                var existingEmail = await db.collection("users").findOne({"email": req.body.email});
+
+                var usernameError, emailError, ageError, typeError, passError, confirmError = "";
+                
+                var ageRegex = /^\d+$/gm;
+                var passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/gm;
+                var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
+                var password = req.body.newPass;
+
+                //if username length is less than 2 or exists in db print error
+                //if email doesn't match the regex or exists in db print error
+                //if age doesn't match the regex print error
+                //if user type button isn't selected, print error
+                //if password doesn't match regex print error
+                //if confirm password doesn't match password print error
+                if(req.body.newUsername.length < 2 || existingUser) {
+                    usernameError = "Invalid username";
+                } 
+                if(emailRegex.test(req.body.email) == false || existingEmail){
+                    emailError = "Invalid email";
+                }
+                if(ageRegex.test(req.body.age) == false) {
+                    ageError = "Invalid age";
+                }
+                if(req.body.user.checked == false && req.body.admin.checked == false){
+                    typeError = "Must select user type";
+                }
+                if(passwordRegex.test(password) == false){
+                    passError = "Password must be at least 8 characters, have 1 capital, 1 digit, and 1 special character";
+                }
+                if(req.body.confirmPass != passError){
+                    confirmError = "Passwords don't match";
+                }
+
+                var model = {
+                    title: "Create Account",
+                    //insert nav
+                    usernameError: usernameError,
+                    emailError: emailError,
+                    ageError: ageError,
+                    typeError: typeError,
+                    passError: passError,
+                    confirmError: confirmError
+                };
+
+                res.render("createAccount", model);
             } catch(err){
                 console.log(err);
             } finally {

@@ -10,33 +10,40 @@ html
         label New Username:
         br
         input(type='text', name='newUsername')
+        span= usernameError
         br
         label Email:
         br
         input(type='email', name='email')
+        span= emailError
         br
         label Profile Picture
         br
         input(type='url', name='image')
+        span= picError
         br
         label Age:
         br
         input(type='text', name='age')
+        span=ageError
         br
         label Role:
+        span=typeError
         br
         span User
-        input(type='radio', name='role', value='user')
+        input(type='radio', name='user', value='user')
         br
         span Admin
-        input(type='radio', name='role', value='admin')
+        input(type='radio', name='admin', value='admin')
         br
         label New Password:
         br
         input(type='password', name='newPass')
+        span= passError
         br
         label Confirm Password:
         br
         input(type='password', name='confirmPass')
-      input(type='submit', value='Create Account')
+        span= confirmError
+        input(type='submit', value='Create Account')
   script(src="/js/scripts.js")
