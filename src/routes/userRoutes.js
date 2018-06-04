@@ -1,10 +1,12 @@
 var express = require('express');
 var fs = require('fs');
 var mongodb = require('mongodb');
+var dateTime = require('node-datetime');
+var dt = dateTime.create();
 
 var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
-var databaseName = "messageBoard";
+var databaseName = "message_board";
 
 var router = express.Router();
 //TODO: Remove demo routes
@@ -16,6 +18,22 @@ var router = express.Router();
 //      Add GET to render user's account details
 //      Add route that allows user to edit their account details
 //      Add POST for logout
+
+/*Format for posts in database
+    title: "x",
+    body: "body",
+    date_posted: "m/d/Y",
+    createdBy: "user Id or username"
+*/
+
+/*Format for users in database
+    type: "admin or user",
+    username: "username",
+    password: "password",
+    avatarImg: "link or empty",
+    email: "email@email.com",
+    age: "number"
+*/
 
 var nav = [{
     "name": "Home",
@@ -37,20 +55,20 @@ var nav = [{
 }
 ];
 
-router.route("/addMonster").get(
+router.route("/newPost").get(
     function(req, res){
-        console.log("Add Monster Get!");
+        console.log("New Post Get!");
         var model = {
-            title:"Add a new Monster",
+            title:"Add a new post!",
             navOptions: nav
         };
-        res.render("addMonster", model);
+        res.render("newPost", model);
     }
 );
 
-router.route("/addMonster").post(
+router.route("/newPost").post(
     function(req, res){
-        console.log("Add Monster Post!");
+        console.log("Added new post!");
         console.log(req.body);
 
         (async function mongo(){
@@ -59,16 +77,16 @@ router.route("/addMonster").post(
 
                 var db = client.db(databaseName);
 
-                var newMonster = {
-                    "name":req.body.name,
-                    "element":req.body.element,
-                    "ailments":[req.body.ailments],
-                    "imgUrl":req.body.imgUrl,
+                var newMessage = {
+                    "name":req.body.subject,
+                    "body":req.body.body,
+                    "date_posted":dt.format('m/d/Y'),
+                    "createdBy": /*insert user id/name/identifier*/ "bob"
                 };
 
-                await db.collection("monsters").insertOne(newMonster);
+                await db.collection("messages").insertOne(newMessage);
 
-                res.redirect("/mh/monster/"+req.body.name);
+                res.redirect("/");
             }catch(err){
                 console.log("Mongo Error!");
                 res.send(err);
@@ -79,7 +97,7 @@ router.route("/addMonster").post(
     }
 );
 
-router.route("/deleteMonster/:name").get(
+router.route("/deletePost/:title").get(
     function(req, res){
         console.log("Delete Monster!");
         console.log(req.params);
@@ -90,9 +108,9 @@ router.route("/deleteMonster/:name").get(
 
                 var db = client.db(databaseName);
 
-                await db.collection("monsters").deleteOne({"name":req.params.name});
+                await db.collection("messages").deleteOne({"title":req.params.name});
 
-                res.redirect("/mh/monsters");
+                res.redirect("/");
             }catch(err){
                 console.log("Mongo Error!");
                 res.send(err);
@@ -103,7 +121,7 @@ router.route("/deleteMonster/:name").get(
     }
 );
 
-router.route("/monster/:name").get(
+router.route("/post/:name").get(
     function(req, res){
         console.log(req.params);
         (async function mongo(){
@@ -112,13 +130,13 @@ router.route("/monster/:name").get(
 
                 var db = client.db(databaseName);
 
-                var monster = await db.collection("monsters").findOne({"name":req.params.name});
+                var post = await db.collection("messages").findOne({"title":req.params.name});
 
-                console.log(monster);
+                console.log(post);
                 var model = {
-                    title: "Monster Detail Page",
+                    title: "Post Detail Page",
                     navOptions : nav,
-                    monster: monster
+                    message: post
                 };
                 res.render("monster", model);
             }catch(err){
@@ -131,7 +149,7 @@ router.route("/monster/:name").get(
     }
 );
 
-router.route("/monsters").get(
+router.route("/posts").get(
     function(req, res){
         // var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
 
@@ -141,14 +159,14 @@ router.route("/monsters").get(
 
                 var db = client.db(databaseName);
 
-                var monsters = await db.collection("monsters").find().toArray();
+                var posts = await db.collection("messages").find().toArray();
 
                 var model = {
-                    title: "Monster List",
+                    title: "Post List",
                     navOptions : nav,
-                    monsters: monsters
+                    posts: posts
                 };
-                res.render("monsters", model);
+                res.render("posts", model);
             }catch(err){
                 res.send(err);
             }finally{

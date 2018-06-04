@@ -5,7 +5,7 @@ var mongoClient = require('mongodb').MongoClient;
 var router = express.Router();
 
 var url = "mongodb://localhost:27017";
-var databaseName = "messageBoard";
+var databaseName = "message_board";
 
 
 //TODO: Remove demo routes
@@ -89,6 +89,35 @@ router.route("/dropData").get(
                 db.dropDatabase(databaseName)
                 
                 res.send("Data dropped!");
+            }catch(err){
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+    }
+);
+
+router.route("/users").get(
+    function(req, res){
+        // var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
+        console.log("User list!");
+        (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var users = await db.collection("users").find().toArray();
+                
+                console.log(users);
+
+                var model = { 
+                    title: "User List",
+                    navOptions : nav,
+                    userList: users
+                };
+                res.render("userList", model);
             }catch(err){
                 res.send(err);
             }finally{
