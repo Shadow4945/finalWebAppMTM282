@@ -99,7 +99,7 @@ router.route("/newPost").post(
 
 router.route("/deletePost/:title").get(
     function(req, res){
-        console.log("Delete Monster!");
+        console.log("Delete Post!");
         console.log(req.params);
 
         (async function mongo(){

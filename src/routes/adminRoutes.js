@@ -1,9 +1,10 @@
 var express = require('express');
 var fs = require('fs');
-var mongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb');
 
 var router = express.Router();
 
+var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 var databaseName = "message_board";
 

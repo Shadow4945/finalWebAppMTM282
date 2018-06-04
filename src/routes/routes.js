@@ -1,5 +1,10 @@
 var express = require('express');
 var fs = require('fs');
+var mongodb = require('mongodb');
+
+var mongoClient = mongodb.MongoClient;
+var url = "mongodb://localhost:27017";
+var databaseName = "message_board";
 
 var router = express.Router();
 
@@ -33,11 +38,28 @@ var nav = [{
 
 router.route("/").get(
     function (req, res) {
-        var data = {
-            title: "Monster Hunter Demo",
-            navOptions : nav
-        };
-        res.render("index", data);
+
+        (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var posts = await db.collection("messages").find().toArray();
+
+                console.log(posts);
+                var data = {
+                    title: "Threads",
+                    navOptions : nav,
+                    threads: posts
+                };
+                res.render("index", data);
+            }catch(err){
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
     }
 );
 
