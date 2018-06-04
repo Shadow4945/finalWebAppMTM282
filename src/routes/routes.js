@@ -168,7 +168,8 @@ router.route("/createAccount").post(
                 if(ageRegex.test(req.body.age) == false) {
                     ageError = "Invalid age";
                 }
-                if(req.body.user.checked == false && req.body.admin.checked == false){
+                console.log("User type: " + req.body.type);
+                if(req.body.type == false){
                     typeError = "Must select user type";
                 }
                 if(passwordRegex.test(password) == false){
@@ -176,6 +177,11 @@ router.route("/createAccount").post(
                 }
                 if(req.body.confirmPass != passError){
                     confirmError = "Passwords don't match";
+                }
+                
+                var typeOfUser = "user";
+                if(req.body.admin){
+                    typeOfUser = "admin";
                 }
 
                 var model = {
@@ -188,6 +194,19 @@ router.route("/createAccount").post(
                     passError: passError,
                     confirmError: confirmError
                 };
+
+            /* Adding user to data base --------------------------------------- */
+                var userToAdd = {
+                    type: typeOfUser,
+                    username: req.body.newUsername,
+                    password: req.body.newPass,
+                    avatar_img: req.body.image,
+                    email: req.body.email,
+                    age: req.body.age
+
+                }
+                await db.collection("users").insertOne(userToAdd);
+            //------------------------------------------------------------------/
 
                 res.render("createAccount", model);
             } catch(err){
