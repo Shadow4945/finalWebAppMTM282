@@ -8,6 +8,26 @@ var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 var databaseName = "message_board";
 
+var nav = [{
+    "name": "Home",
+    "path": "/"
+},
+{
+    "name": "About",
+    "path": "/about"
+},{
+    "name": "Monsters",
+    "path": "/mh/monsters"
+},{
+    "name": "Add Monster",
+    "path": "/mh/addMonster"
+}
+,{
+    "name": "Log Out",
+    "path": "/logout"
+}
+];
+
 
 //TODO: Remove demo routes
 //      Add admin nav bar variable
@@ -119,6 +139,8 @@ router.route("/users").get(
                 };
                 res.render("userList", model);
             }catch(err){
+                console.log("Error in /users");
+                console.log(err);
                 res.send(err);
             }finally{
                 client.close();

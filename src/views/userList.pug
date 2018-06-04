@@ -8,6 +8,7 @@ html
                 a(href=navOption.path)=navOption.name
         div(class="userList")
             h1(id="myH1")= title
+            p= "List of Users"
             each user in userList
                 table
                     tr
@@ -16,8 +17,8 @@ html
                         th Age
                         th Role
                     tr
-                        td #{users.username}
-                        td #{users.email}
-                        td #{users.age}
-                        td #{users.type}
+                        td #{user.username}
+                        td #{user.email}
+                        td #{user.age}
+                        td #{user.type}
         script(src="/js/scripts.js")
