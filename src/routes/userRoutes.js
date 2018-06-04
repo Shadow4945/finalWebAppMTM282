@@ -123,7 +123,7 @@ router.route("/deletePost/:title").get(
 
 router.route("/post/:name").get(
     function(req, res){
-        console.log(req.params);
+        //console.log(req.params);
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -131,16 +131,19 @@ router.route("/post/:name").get(
                 var db = client.db(databaseName);
 
                 var post = await db.collection("messages").findOne({"title":req.params.name});
+                var userInfo = await db.collection("users").findOne({"_id":post.createdBy});
 
-                console.log(post);
+                // console.log(userInfo);
                 var model = {
                     title: "Post Detail Page",
                     navOptions : nav,
-                    message: post
+                    message: post,
+                    user: userInfo
                 };
                 res.render("viewPost", model);
             }catch(err){
                 console.log("Mongo Error!");
+                console.log(err);
                 res.send(err);
             }finally{
                 client.close();
