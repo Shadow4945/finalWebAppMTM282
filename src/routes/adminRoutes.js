@@ -107,9 +107,33 @@ router.route("/userList").get(
     }
 );
 
-router.route("/deleteUser").get(
+router.route("/deleteUser/:name").get(
     function(req, res){
+        var getNav = req.app.get("getNav");
         //delete from database
+        (async function mongo(){
+            try{
+                var client = await mongoClient.connect(url);
+
+                var db = client.db(databaseName);
+
+                var userToDelete = {"username": req.params.name };
+
+                await db.collection("users").deleteOne(userToDelete);
+
+                
+                
+                res.redirect("/");
+            }catch(err){
+                console.log("Error in /deleteUser");
+                console.log(err);
+                res.send(err);
+            }finally{
+                client.close();
+            }
+        }());
+
+        
     }
 );
 
