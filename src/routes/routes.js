@@ -406,7 +406,7 @@ router.route("/editPost/:name").get(
 )
 
 //POST EDIT POST
-router.route("/editPost/:name").post(
+router.route("/editPost").post(
     function (req, res) {
 
         (async function mongo() {
@@ -414,15 +414,17 @@ router.route("/editPost/:name").post(
                 var client = await mongoClient.connect(url);
 
                 var db = client.db(databaseName);
+                console.log(req.body);
 
-                var post = { "name": req.params.name };
-                var newValues = { $set: { name: req.body.editName, body: req.body.editThread } };
-                await db.collection("users").updateOne(post, newValues);
+                var post = { "title": req.body.originalName };
+                var newValues = { $set: { title: req.body.editSubject, body: req.body.editThread } };
+                await db.collection("messages").updateOne(post, newValues);
 
 
                 res.redirect("/");
             } catch (err) {
                 console.log("Mongo Error!");
+                console.log(err);
                 res.send(err);
             } finally {
                 client.close();
