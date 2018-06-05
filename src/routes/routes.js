@@ -233,7 +233,12 @@ router.route("/accountDetails").get(
                     navOptions: getNav(req.sesssion.user),
                     currentUser: currentUser
                 };
-                res.render("accountDetails", model);
+
+                if (req.session.user == undefined) {
+                    res.redirect("/loging");
+                } else if (req.session.user.isAuthenticated) {
+                    res.render("accountDetails", model);
+                }
 
             } catch (err) {
                 console.log("Mongo Error!");
@@ -263,7 +268,11 @@ router.route("/editAccountDetails").get(
                     navOptions: getNav(req.session.user),
                     currentUser: currentUser
                 };
-                res.render("editAccountDetails", model);
+                if (req.session.user == undefined) {
+                    res.redirect('/login');
+                } else if (req.session.user.isAuthenticated) {
+                    res.render("editAccountDetails", model);
+                }
 
             } catch (err) {
                 console.log("Mongo Error!");
@@ -310,7 +319,11 @@ router.route("/newPost").get(
             title: "Add a new post!",
             navOptions: getNav(req.session.user)
         };
-        res.render("newPost", model);
+        if (req.session.user == undefined) {
+            res.redirect('/login');
+        } else if (req.session.user.isAuthenticated) {
+            res.render("newPost", model);
+        }
     }
 );
 
@@ -361,7 +374,12 @@ router.route("/editPost/:name").get(
                     navOptions: getNav(req.session.user),
                     currentPost: currentPost
                 };
-                res.render("editPost", model);
+                if (currentPost.createdBy == currentUser.username) {
+                    res.render("editPost", model);
+                } else {
+                    res.redirect("/");
+                }
+
 
             } catch (err) {
                 console.log("Mongo Error!");
