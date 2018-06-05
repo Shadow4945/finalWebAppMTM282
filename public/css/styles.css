@@ -55,6 +55,32 @@ p{
     font-weight: bold;
 }
 
+.viewPost a{
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    color: white;
+    border: 2px black solid;
+    border-radius: 4px;
+    text-shadow: 0px 1px 1px rgb(11, 179, 123);
+    background-color: rgb(66, 184, 221);
+}
+
+.viewPost a:hover{
+    background-color: rgb(52, 146, 175);
+}
+
+.userTable a{
+    text-decoration: none;
+    color: blue;
+}
+
+.userTable a:hover{
+    color: purple;
+}
+
 nav{
     margin-top:15px;
     background-color: rgb(172, 167, 167);
@@ -63,24 +89,6 @@ nav{
     display: inline-block;
     border:solid 2px black;
 }
-
-/* .loginNav a{
-    text-decoration: none;
-    margin-right: 10px;
-    padding: 5px;
-    color: white;
-    border: black solid;
-    background-color: rgb(172, 167, 167);
-}
-
-.loginNav{
-    border-top: none;
-}
-
-.loginNav a:hover{
-    color: black;
-    background-color: rgb(155, 155, 155);
-} */
 
 nav a{
     margin-right: 10px;
@@ -106,10 +114,6 @@ nav a:hover{
 .createAccount span{
     padding: 5px;
 }
-
-/* .createAccount input[type=radio]:hover{
-    color: lightblue;
-} */
 
 .createAccount input:last-child{
     font-size: 15px;
