@@ -324,17 +324,10 @@ router.route("/newPost").post(
                 var db = client.db(databaseName);
 
                 var newMessage = {
-<<<<<<< HEAD
                     "name": req.body.subject,
                     "body": req.body.body,
                     "date_posted": dt.format('m/d/Y'),
                     "createdBy": currentUser.username
-=======
-                    "title":req.body.subject,
-                    "body":req.body.body,
-                    "date_posted":dt.format('m/d/Y'),
-                    "createdBy": /*insert user id/name/identifier*/ "bob"
->>>>>>> ef633587445346fc3e877befb0c4ffa3f7ad2797
                 };
 
                 await db.collection("messages").insertOne(newMessage);
