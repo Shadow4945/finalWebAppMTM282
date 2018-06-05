@@ -95,7 +95,14 @@ router.route("/userList").get(
                     navOptions : getNav(req.session.user),
                     userList: users
                 };
-                res.render("userList", data);
+                if(req.session.user == undefined){
+                    res.redirect("/login");
+                } else if(req.session.user.isAdmin){
+                    res.render("userList", data);
+                } else {
+                    res.redirect("/");
+                }
+
             }catch(err){
                 console.log("Error in /users");
                 console.log(err);
