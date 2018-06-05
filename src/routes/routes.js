@@ -67,7 +67,7 @@ router.route("/login").get(
             title: "Log In",
             navOptions: getNav(req.session.user)
         };
-
+        console.log("USER: " + req.session.user);
         res.render("login", model);
     }
 );

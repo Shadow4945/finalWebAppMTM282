@@ -17,10 +17,13 @@ html
                         th Email
                         th Age
                         th Role
+                        th Delete
                     each user in userList
                             tr
                                 td #{user.username}
                                 td #{user.email}
                                 td #{user.age}
                                 td #{user.type}
+                                td 
+                                    a(href="/admin/deleteUser") Delete User
         script(src="/js/scripts.js")

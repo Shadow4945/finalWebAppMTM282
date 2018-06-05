@@ -82,7 +82,6 @@ router.route("/dropData").get(
 router.route("/userList").get(
     function(req, res){
        var getNav = req.app.get("getNav");
-        console.log("User list!");
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -96,7 +95,6 @@ router.route("/userList").get(
                     navOptions : getNav(req.session.user),
                     userList: users
                 };
-                console.log(data);
                 res.render("userList", data);
             }catch(err){
                 console.log("Error in /users");
