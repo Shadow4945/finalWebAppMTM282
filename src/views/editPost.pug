@@ -12,6 +12,7 @@ html
             p= "Edit your post."
             form(id='form', method='post', action='/editPost')
                 label Post Subject:
+                input(type='text',name='originalName', value=currentPost.title, readonly)
                 br
                 input(type='text', name='editSubject', value=currentPost.title)
                 br
