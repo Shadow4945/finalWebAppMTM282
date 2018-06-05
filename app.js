@@ -22,7 +22,51 @@ var checkAuth = function (req, res, next) {
     }
 }
 //TODO: Set up nav bar here based on current user
-//app.set("getNav", getNav);
+function getNav(user) {
+    var isAdmin = false;
+    var isAuthenticated = false;
+
+    if (user) {
+        isAdmin = user.isAdmin;
+        isAuthenticated = user.isAuthenticated;
+    }
+    return [{
+        "name": "Home",
+        "path": "/",
+        "show": true
+    }, {
+        "name": "Create Account",
+        "path": "/createAccount",
+        "show": !isAuthenticated
+    }, {
+        "name": "Account Details",
+        "path": "/users/accountDetails",
+        "show": isAuthenticated
+    }, {
+        "name": "New Post",
+        "path": "/users/newPost",
+        "show": isAuthenticated
+    }, {
+        "name": "Logout",
+        "path": "/logout",
+        "show": isAuthenticated
+    }, {
+        "name": "Login",
+        "path": "/login",
+        "show": !isAuthenticated
+    }, {
+        "name": "Users",
+        "path": "/admin/userList",
+        "show": isAdmin
+    }, {
+        "name": "Reload Data",
+        "path": "/admin/reloadData",
+        "show": isAdmin
+    }
+    ];
+}
+
+app.set("getNav", getNav);
 
 var router = require('./src/routes/routes');
 app.use("/", router);

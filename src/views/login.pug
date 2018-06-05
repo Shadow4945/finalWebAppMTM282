@@ -3,6 +3,10 @@ html
     title= title
     link(rel="stylesheet", href="/css/styles.css")
   body
+      nav
+        each navOption in navOptions
+            if navOption.show
+                a(href=navOption.path)=navOption.name
     div(class='login')
       h1(id="myH1")= title
       form(id='form', method='post', action='/login')

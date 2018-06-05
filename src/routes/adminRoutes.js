@@ -8,27 +8,6 @@ var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 var databaseName = "message_board";
 
-var nav = [{
-    "name": "Home",
-    "path": "/"
-},
-{
-    "name": "About",
-    "path": "/about"
-},{
-    "name": "Monsters",
-    "path": "/mh/monsters"
-},{
-    "name": "Add Monster",
-    "path": "/mh/addMonster"
-}
-,{
-    "name": "Log Out",
-    "path": "/logout"
-}
-];
-
-
 //TODO: Remove demo routes
 //      Add admin nav bar variable
 //      Add GET that renders newPost page
@@ -40,7 +19,7 @@ var nav = [{
 //      Add GET to delete user accounts in the user list
 //      Add POST for logout
 
-router.route("/reLoadData").get(
+router.route("/reloadData").get(
     function(req, res){
         var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
         console.log(fileData);
@@ -114,9 +93,9 @@ router.route("/dropData").get(
     }
 );
 
-router.route("/users").get(
+router.route("/userList").get(
     function(req, res){
-        // var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
+       var getNav = req.app.get("getNav");
         console.log("User list!");
         (async function mongo(){
             try{
@@ -126,11 +105,11 @@ router.route("/users").get(
 
                 var users = await db.collection("users").find().toArray();
                 
-                //console.log(users);
+                
 
                 var data = { 
                     title: "User List",
-                    navOptions : nav,
+                    navOptions : getNav(req.session.user),
                     userList: users
                 };
                 console.log(data);

@@ -35,30 +35,10 @@ var router = express.Router();
     age: "number"
 */
 
-var nav = [{
-    "name": "Home",
-    "path": "/"
-},
-{
-    "name": "New Post",
-    "path": "/user/newPost"
-},{
-    "name": "All Posts",
-    "path": "/user/posts"
-},{
-    "name": "Account",
-    "path":"/user/accountDetails"
-}
-,{
-    "name": "Log Out",
-    "path": "/logout"
-}
-];
-
 //ACCOUNT DETAILS
 router.route("/accountDetails").get(
     function(req,res){
-        console.log("Account Details!");
+        var getNav = req.app.get("getNav");
 
        (async function mongo(){
             try{
@@ -70,7 +50,7 @@ router.route("/accountDetails").get(
                 
                 var model = {
                     title: "Account Details",
-                    navOptions : nav,
+                    navOptions : getNav(req.sesssion.user),
                     currentUser: currentUser
                 };
                 res.render("accountDetails", model);
@@ -88,7 +68,7 @@ router.route("/accountDetails").get(
 //EDIT ACCOUNT GET
 router.route("/editAccountDetails").get(
     function(req,res){
-        console.log("Edit Account Details!");
+        var getNav = req.app.get("getNav");
 
        (async function mongo(){
             try{
@@ -100,7 +80,7 @@ router.route("/editAccountDetails").get(
                 
                 var model = {
                     title: "Account Details",
-                    navOptions : nav,
+                    navOptions : getNav(req.session.user),
                     currentUser: currentUser
                 };
                 res.render("editAccountDetails", model);
@@ -145,10 +125,11 @@ router.route("/editAccountDetails").post(
 
 router.route("/newPost").get(
     function(req, res){
-        console.log("New Post Get!");
+        var getNav = req.app.get("getNav");
+
         var model = {
             title:"Add a new post!",
-            navOptions: nav
+            navOptions: getNav(req.session.user)
         };
         res.render("newPost", model);
     }
@@ -156,8 +137,6 @@ router.route("/newPost").get(
 
 router.route("/newPost").post(
     function(req, res){
-        console.log("Added new post!");
-        console.log(req.body);
 
         (async function mongo(){
             try{
@@ -188,7 +167,7 @@ router.route("/newPost").post(
 //EDIT POST GET
 router.route("/editPost/:name").get(
     function(req,res){
-        console.log("Edit Post");
+        var getNav = req.app.get("getNav");
 
        (async function mongo(){
             try{
@@ -200,7 +179,7 @@ router.route("/editPost/:name").get(
                 
                 var model = {
                     title: "Account Details",
-                    navOptions : nav,
+                    navOptions : getNav(req.session.user),
                     currentPost: currentPost
                 };
                 res.render("editPost", model);
@@ -268,7 +247,7 @@ router.route("/deletePost/:title").get(
 
 router.route("/post/:name").get(
     function(req, res){
-        //console.log(req.params);
+        var getNav = req.app.get("getNav");
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -281,7 +260,7 @@ router.route("/post/:name").get(
                 // console.log(userInfo);
                 var model = {
                     title: "Post Detail Page",
-                    navOptions : nav,
+                    navOptions : getNav(req.session.user),
                     message: post,
                     user: userInfo
                 };
@@ -299,8 +278,7 @@ router.route("/post/:name").get(
 
 router.route("/posts").get(
     function(req, res){
-        // var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
-
+        var getNav = req.app.get("getNav");
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -311,7 +289,7 @@ router.route("/posts").get(
 
                 var model = {
                     title: "Post List",
-                    navOptions : nav,
+                    navOptions : getNav(req.session.user),
                     posts: posts
                 };
                 res.render("posts", model);

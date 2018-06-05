@@ -19,30 +19,9 @@ var router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-
-var nav = [{
-    "name": "Home",
-    "path": "/"
-},
-{
-    "name": "About",
-    "path": "/about"
-}, {
-    "name": "Monsters",
-    "path": "/mh/monsters"
-}, {
-    "name": "Add Monster",
-    "path": "/mh/addMonster"
-}
-    , {
-    "name": "Log Out",
-    "path": "/logout"
-}
-];
-
 router.route("/").get(
     function (req, res) {
-
+        var getNav = req.app.get("getNav");
         (async function mongo() {
             try {
                 var client = await mongoClient.connect(url);
@@ -54,7 +33,7 @@ router.route("/").get(
                 console.log(posts);
                 var data = {
                     title: "Threads",
-                    navOptions: nav,
+                    navOptions: getNav(req.session.user),
                     threads: posts
                 };
                 console.log(data);
@@ -70,9 +49,10 @@ router.route("/").get(
 
 router.route("/login").get(
     function (req, res) {
+        var getNav = req.app.get("getNav");
         var model = {
-            title: "Log In"
-            //add nav for user
+            title: "Log In",
+            navOptions: getNav(req.session.user)
         };
 
         res.render("login", model);
@@ -125,13 +105,11 @@ router.route("/logout").get(
 
 router.route("/createAccount").get(
     function (req, res) {
+        var getNav = req.app.get("getNav");
         var model = {
             title: "Create Account",
-            //insert nav
-            passErrorMsg: "",
-            confirmErrorMsg: ""
+            navOptions: getNav(req.session.user),
         };
-
         res.render("createAccount", model);
     }
 );
