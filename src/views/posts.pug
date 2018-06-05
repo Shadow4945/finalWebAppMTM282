@@ -1,0 +1,18 @@
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/styles.css")
+        div(class="loginNav")
+    body
+        nav
+            each navOption in navOptions
+                a(href=navOption.path)=navOption.name
+        div(class="posts")
+            h1(id="myH1")= title
+            p= "Browsing all available posts."
+            div(class='threads')
+                each post in posts
+                    ul
+                        li
+                            a(href="/user/post/" + post.title) #{post.title}
+        script(src="/js/scripts.js")

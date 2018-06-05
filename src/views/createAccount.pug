@@ -6,7 +6,7 @@ html
     div(class='createAccount')
       h1(id="myH1")= title
       p= 'Enter the information below to create your new account!'
-      form(id='form', method='post', action='/createAccount')
+      form(id='createAccountForm', method='post', action='/createAccount')
         label New Username:
         br
         input(type='text', name='newUsername')

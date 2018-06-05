@@ -9,12 +9,10 @@ html
         div(class="viewPost")
             h1(id="myH1")= title
             label Post Subject:
-            br
             p
                 | #{message.title}
-            br
             p
-                | Posted by:
+                | Posted by: 
                 img(src=user.avatar_img)
                 | #{user.username} on #{message.date_posted}
             label Thread:
