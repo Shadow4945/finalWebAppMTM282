@@ -16,7 +16,7 @@ var router = express.Router();
 //      POST that allows users to login & redirects to proper view
 //      GET that renders create account
 //      POST that saves new account info to database & redirects to proper view
-router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
@@ -138,77 +138,90 @@ router.route("/createAccount").get(
 
 
 router.route("/createAccount").post(
-    function(req, res){
+    function (req, res) {
         (async function mongo() {
-            try{
+            try {
                 var client = await mongoClient.connect(url);
                 var db = client.db(databaseName);
                 var existingUser = await db.collection("users").findOne({ "username": req.body.newUsername });
-                var existingEmail = await db.collection("users").findOne({"email": req.body.email});
+                var existingEmail = await db.collection("users").findOne({ "email": req.body.email });
 
-                var usernameError, emailError, ageError, typeError, passError, confirmError = "";
-                
+                var usernameError, ageError, typeError, passError, confirmError = "";
+                var allFieldsValid = true;
+
                 var ageRegex = /^\d+$/gm;
                 var passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/gm;
-                var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
                 var password = req.body.newPass;
 
-                if(req.body.newUsername.length < 2 || existingUser) {
+                if (req.body.newUsername.length < 2 || existingUser) {
                     usernameError = "Invalid username";
-                } 
-                if(emailRegex.test(req.body.email) == false || existingEmail){
-                    emailError = "Invalid email";
+                    allFieldsValid = false;
                 }
-                if(ageRegex.test(req.body.age) == false) {
+
+                if (ageRegex.test(req.body.age) == false) {
                     ageError = "Invalid age";
+                    allFieldsValid = false;
                 }
-                console.log("User type: " + req.body.type);
-                if(req.body.type == false){
+
+                if (req.body.type == false) {
                     typeError = "Must select user type";
+                    allFieldsValid = false;
                 }
-                if(passwordRegex.test(password) == false){
+                if (passwordRegex.test(password) == false) {
                     passError = "Password must be at least 8 characters, have 1 capital, 1 digit, and 1 special character";
+                    allFieldsValid = false;
                 }
-                if(req.body.confirmPass != password){
+                if (req.body.confirmPass != password) {
                     confirmError = "Passwords don't match";
+                    allFieldsValid = false;
                 }
-                
+
+
+
                 var typeOfUser = "user";
-                if(req.body.admin){
+                if (req.body.admin) {
                     typeOfUser = "admin";
                 }
 
-                var model = {
-                    title: "Create Account",
-                    //insert nav
-                    usernameError: usernameError,
-                    emailError: emailError,
-                    ageError: ageError,
-                    typeError: typeError,
-                    passError: passError,
-                    confirmError: confirmError
-                };
 
-            /* Adding user to data base --------------------------------------- */
-                var userToAdd = {
-                    type: typeOfUser,
-                    username: req.body.newUsername,
-                    password: req.body.newPass,
-                    avatar_img: req.body.image,
-                    email: req.body.email,
-                    age: req.body.age
+                if (allFieldsValid) {
+                    /* Adding user to data base --------------------------------------- */
+                    var userToAdd = {
+                        type: typeOfUser,
+                        username: req.body.newUsername,
+                        password: req.body.newPass,
+                        avatar_img: req.body.image,
+                        email: req.body.email,
+                        age: req.body.age
 
+                    };
+                    await db.collection("users").insertOne(userToAdd);
+                    //------------------------------------------------------------------/
+                    var model = {
+                        title: "Log in"
+                        //insert nav
+                    };
+                    res.render("login", model);
+                } else {
+                    var model = {
+                        title: "Create Account",
+                        //insert nav
+                        usernameError: usernameError,
+                        emailError: emailError,
+                        ageError: ageError,
+                        typeError: typeError,
+                        passError: passError,
+                        confirmError: confirmError
+                    };
+
+                    res.render("createAccount", model);
                 }
-                await db.collection("users").insertOne(userToAdd);
-            //------------------------------------------------------------------/
-
-                res.render("createAccount", model);
-            } catch(err){
+            } catch (err) {
                 console.log(err);
             } finally {
                 client.close();
             }
         }());
     }
- );
+);
 module.exports = router;
