@@ -15,4 +15,9 @@ html
                     ul
                         li
                             a(href="/post/" + thread.title) #{thread.title}
+                            p
+                                | Date posted 
+                                | #{thread.date_posted}
+                                | by
+                                | #{thread.createdBy}
         script(src="/js/scripts.js")

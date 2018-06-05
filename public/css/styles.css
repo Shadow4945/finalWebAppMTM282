@@ -33,6 +33,23 @@ p{
     border-bottom: black solid;
 }
 
+.threads a{
+    text-decoration: none;
+    font-size: 18px;
+    color: blue;
+}
+
+.threads p{
+    font-size: 16px;
+    margin-top: 5px;
+    padding-bottom: 15px;
+}
+
+.threads a:hover{
+    font-size: 20px;
+    color: purple;
+}
+
 .createAccount{
     border-top: none;
 }
