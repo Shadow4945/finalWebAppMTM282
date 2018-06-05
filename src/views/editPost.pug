@@ -18,7 +18,8 @@ html
                 br
                 label Body:
                 br
-                input(type='text', name='editThread', value=currentPost.body)
+                textarea(id='content', name='editThread', placeholder=currentPost.body)
+                //- input(type='text', name='editThread', value=currentPost.body)
                 br
                 input(type='submit', value='Update')
         script(src="/js/scripts.js")
