@@ -327,7 +327,7 @@ router.route("/newPost").post(
                 var db = client.db(databaseName);
 
                 var newMessage = {
-                    "name":req.body.subject,
+                    "title":req.body.subject,
                     "body":req.body.body,
                     "date_posted":dt.format('m/d/Y'),
                     "createdBy": /*insert user id/name/identifier*/ "bob"
