@@ -10,10 +10,10 @@ html
             h1(id="myH1")= title
             p= "Welcome to your account details."
             ul
-                img(src=currentUser.image)
+                img(src=currentUser.avatar_img)
                 li= "Username: " + currentUser.username
                 li= "Email: " + currentUser.email
                 li= "Age: " + currentUser.age
-                li= "Role: " + currentUser.role
-            a(href='/editAccountDetails') Edit
+                li= "Role: " + currentUser.type
+            a(href='/user/editAccountDetails') Edit
         script(src="/js/scripts.js")

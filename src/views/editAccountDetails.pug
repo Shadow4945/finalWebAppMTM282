@@ -12,9 +12,9 @@ html
             form(id='editForm', method='post', action='/editAccountDetails')
                 label Profile Picture
                 br
-                img(src=currentUser.image)
+                img(src=currentUser.avatar_img)
                 br
-                input(type='file', name='newpfp')
+                input(type='url', name='newpfp', value=currentUser.avatar_img)
                 br
                 label Username:
                 br
@@ -26,15 +26,15 @@ html
                 br
                 label Age:
                 br
-                input(type="number", name='newAge', value=currentUser.age)
+                input(type="text", name='newAge', value=currentUser.age)
                 br
-                labe Role: #{currentUser.role}
+                labe Role: #{currentUser.type}
                 br
                 span User
-                input(type='radio', name='user', value='user')
+                input(type='radio', name='type', value='user')
                 br
                 span Admin
-                input(type='radio', name='admin', value='admin')
+                input(type='radio', name='type', value='admin')
                 br
                 input(type='submit', value='Update')
         script(src="/js/scripts.js")

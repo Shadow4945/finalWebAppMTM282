@@ -9,16 +9,17 @@ html
         div(class="userList")
             h1(id="myH1")= title
             p= "List of Users"
-            each user in userList
-                table
+            div(class="userTable")
+                 table
                     tr
                         th Username
                         th Email
                         th Age
                         th Role
-                    tr
-                        td #{user.username}
-                        td #{user.email}
-                        td #{user.age}
-                        td #{user.type}
+                    each user in userList
+                            tr
+                                td #{user.username}
+                                td #{user.email}
+                                td #{user.age}
+                                td #{user.type}
         script(src="/js/scripts.js")
