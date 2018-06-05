@@ -40,11 +40,11 @@ function getNav(user) {
         "show": !isAuthenticated
     }, {
         "name": "Account Details",
-        "path": "/users/accountDetails",
+        "path": "/accountDetails",
         "show": isAuthenticated
     }, {
         "name": "New Post",
-        "path": "/users/newPost",
+        "path": "/newPost",
         "show": isAuthenticated
     }, {
         "name": "Logout",
@@ -70,8 +70,7 @@ app.set("getNav", getNav);
 
 var router = require('./src/routes/routes');
 app.use("/", router);
-var userRoutes = require('./src/routes/userRoutes');
-app.use("/user/", userRoutes);
+
 var adminRoutes = require('./src/routes/adminRoutes');
 app.use("/admin/", adminRoutes);
 

@@ -8,23 +8,13 @@ var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 var databaseName = "message_board";
 
-//TODO: Remove demo routes
-//      Add admin nav bar variable
-//      Add GET that renders newPost page
-//      Add POST that saves admin's post to database
-//      Add GET that allows admin to delete any post
-//      Add route that allows admin to edit their own post
-//      Add GET to render admin's account details
-//      Add route that allows admin to edit their account details
+//TODO: 
 //      Add GET to delete user accounts in the user list
-//      Add POST for logout
 
 router.route("/reloadData").get(
     function(req, res){
         var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
-        console.log(fileData);
 
-        // IIFE Weirdness
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -48,9 +38,7 @@ router.route("/reloadData").get(
 router.route("/loadData").get(
     function(req, res){
         var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
-        console.log(fileData);
 
-        // IIFE Weirdness
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -73,9 +61,7 @@ router.route("/loadData").get(
 router.route("/dropData").get(
     function(req, res){
         var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
-        console.log(fileData);
 
-        // IIFE Weirdness
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -104,8 +90,6 @@ router.route("/userList").get(
                 var db = client.db(databaseName);
 
                 var users = await db.collection("users").find().toArray();
-                
-                
 
                 var data = { 
                     title: "User List",
@@ -122,6 +106,12 @@ router.route("/userList").get(
                 client.close();
             }
         }());
+    }
+);
+
+router.route("/deleteUser").get(
+    function(req, res){
+        //delete from database
     }
 );
 
