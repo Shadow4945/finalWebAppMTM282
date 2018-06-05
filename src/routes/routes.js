@@ -95,7 +95,6 @@ router.route("/login").post(
                         username: req.body.username,
                         isAdmin: user.type.includes("admin")
                     };
-
                     res.redirect("/");
                 }
             } catch (err) {
@@ -133,6 +132,7 @@ router.route("/createAccount").get(
 
 router.route("/createAccount").post(
     function (req, res) {
+        var getNav = req.app.get("getNav");
         (async function mongo() {
             try {
                 var client = await mongoClient.connect(url);
@@ -179,7 +179,6 @@ router.route("/createAccount").post(
 
 
                 if (allFieldsValid) {
-                    /* Adding user to data base --------------------------------------- */
                     var userToAdd = {
                         type: typeOfUser,
                         username: req.body.newUsername,
@@ -190,18 +189,16 @@ router.route("/createAccount").post(
 
                     };
                     await db.collection("users").insertOne(userToAdd);
-                    //------------------------------------------------------------------/
                     var model = {
-                        title: "Log in"
-                        //insert nav
+                        title: "Log in",
+                        navOptions: getNav(req.session.user)
                     };
                     res.render("login", model);
                 } else {
                     var model = {
                         title: "Create Account",
-                        //insert nav
+                        navOptions: getNav(req.session.user),
                         usernameError: usernameError,
-                        emailError: emailError,
                         ageError: ageError,
                         typeError: typeError,
                         passError: passError,
