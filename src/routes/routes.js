@@ -240,7 +240,7 @@ router.route("/accountDetails").get(
                 };
 
                 if (req.session.user == undefined) {
-                    res.redirect("/loging");
+                    res.redirect("/login");
                 } else if (req.session.user.isAuthenticated) {
                     res.render("accountDetails", model);
                 }
@@ -441,12 +441,12 @@ router.route("/deletePost/:title").get(
 
                 var db = client.db(databaseName);
 
-                if (currentUser.type.includes("admin")) {
-                    await db.collection("messages").deleteOne({ "title": req.params.name });
+                if (req.session.user.isAdmin) {
+                    await db.collection("messages").deleteOne({ "title": req.params.title });
                 } else {
-                    var post = await db.collection("messages").findOne({ "title": req.params.name });
+                    var post = await db.collection("messages").findOne({ "title": req.params.title });
                     if (post.createdBy == currentUser.username) {
-                        await db.collection("messages").deleteOne({ "title": req.params.name });
+                        await db.collection("messages").deleteOne({ "title": req.params.title });
                     }
                 }
 
