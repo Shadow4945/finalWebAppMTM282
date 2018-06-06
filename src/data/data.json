@@ -15,6 +15,22 @@
             "email":"bob@user.com",
             "age": "12",
             "type": "user"
+        },
+        {
+            "username":"stef",
+            "password": "pass",
+            "avatar_img": "https://m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+            "email":"stef@user.com",
+            "age": "58",
+            "type": "user"
+        },
+        {
+            "username":"paul",
+            "password": "pass",
+            "avatar_img": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+            "email":"pual@user.com",
+            "age": "888",
+            "type": "user"
         }
     ],
     "messages":[
