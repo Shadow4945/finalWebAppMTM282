@@ -15,7 +15,9 @@ html
                 each thread in threads
                     div(class="post")
                         a(class="postTitle" href="/post/" + thread.title) #{thread.title}
-                        p Date Posted: #{thread.date_posted}
-                        p By: #{thread.createdBy}
+                        p
+                            | Date Posted: #{thread.date_posted}
+                            | By: #{thread.createdBy}  
+                            img(src=thread.avatar_img)
                         p #{thread.body}
         script(src="/js/scripts.js")
