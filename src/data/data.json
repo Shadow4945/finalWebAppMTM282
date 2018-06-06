@@ -1,37 +1,29 @@
 {
     "users":[
         {
-            "username":"admin",
-            "password": "pass",
-            "avatar_img": "https://api.adorable.io/avatars/285/abott@adorable.png",
-            "email":"admin@admin.com",
-            "age": "42",
-            "type": "admin"
+            "type": "admin",
+            "username": "admin",
+            "password": "$2a$10$Q4zij5zrRMtMbHIaM1P.muJ8CZ3AFzlInVHHPJ3vCA4fVeMSEZPSe",
+            "avatarImg": "https://cdn-images-1.medium.com/max/1600/1*EelUYA6BOTNXtuRjSlaqHw.png",
+            "email": "admin@email.com",
+            "age": 42
         },
         {
-            "username":"bob",
-            "password": "pass",
-            "avatar_img": "https://api.adorable.io/avatars/285/abott@adorable.png",
-            "email":"bob@user.com",
-            "age": "12",
-            "type": "user"
+            "type": "user",
+            "username": "bob",
+            "password": "$2a$10$ejKdnOF8RH5.vI4hIOsZ7uYGS34Zo8qwyCY1adQScszKtCRD.FQL2",
+            "avatarImg":"https://api.adorable.io/avatars/jnI72wfLAC",
+            "email": "user@email.com",
+            "age": 80
         },
         {
-            "username":"stef",
-            "password": "pass",
-            "avatar_img": "https://m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_UX182_CR0,0,182,268_AL_.jpg",
-            "email":"stef@user.com",
-            "age": "58",
-            "type": "user"
-        },
-        {
-            "username":"paul",
-            "password": "pass",
-            "avatar_img": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
-            "email":"pual@user.com",
-            "age": "888",
-            "type": "user"
-        }
+            "type": "user",
+            "username": "billy",
+            "password": "$2a$10$DZBORK7mDBkvoIPNYtuA4OFPIMBo2mOz.jr5xU3tvxgFpvkCgyS5W",
+            "avatarImg":"http://api.adorable.io/avatar/hi_mom",
+            "email": "billy@email.com",
+            "age": 21
+        }     
     ],
     "messages":[
         {

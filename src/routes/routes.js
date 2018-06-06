@@ -306,8 +306,6 @@ router.route("/editAccountDetails").post(
                 await db.collection("users").updateOne(user, newValues);
                 req.session.user.username = req.body.newUsername;
 
-
-
                 res.redirect("/");
 
             } catch (err) {
