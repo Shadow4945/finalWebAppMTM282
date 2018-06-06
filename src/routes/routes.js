@@ -340,7 +340,7 @@ router.route("/newPost").post(
                 var userTitle = req.body.subject;
                 
                 if(userTitle.indexOf("?") > -1){
-                    var title = userTitle.replace("?", ".");
+                    var title = userTitle.replace("?", "");
                 } else{
                     var title = req.body.subject;
                 }
