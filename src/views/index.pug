@@ -12,12 +12,9 @@ html
             p= "Welcome to the Messages of the World!"
             div(class='threads')
                 each thread in threads
-                    ul
-                        li
-                            a(href="/post/" + thread.title) #{thread.title}
-                            p
-                                | Date posted 
-                                | #{thread.date_posted}
-                                | by
-                                | #{thread.createdBy}
+                    div(class="post")
+                        a(class="postTitle" href="/post/" + thread.title) #{thread.title}
+                        p Date Posted: #{thread.date_posted}
+                        p By: #{thread.createdBy}
+                        p #{thread.body}
         script(src="/js/scripts.js")
