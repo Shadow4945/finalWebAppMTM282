@@ -20,6 +20,8 @@ html
             label Thread:
             p
                 | #{message.body}
+            each reply in postReplies
+                p #{reply.text}
             a(href='/editPost/' + message.title) Edit
             a(href='/deletePost/' + message.title) Delete
         script(src="/js/scripts.js")

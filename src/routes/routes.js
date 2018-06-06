@@ -1,6 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var mongodb = require('mongodb');
+var ObjectID = require('mongodb').ObjectID;
 var bodyParser = require('body-parser');
 var dateTime = require('node-datetime');
 var bcrypt = require('bcryptjs');
@@ -475,14 +476,17 @@ router.route("/post/:name").get(
 
                 var post = await db.collection("messages").findOne({ "title": req.params.name });
                 var userInfo = await db.collection("users").findOne({ "username": post.createdBy });
-                var postReplies = await db.collection("replies")
+                var o_id = new ObjectID(post._id);
+                var postReplies = await db.collection("replies").find({'originalThreadId':o_id}).toArray();
 
                 var model = {
                     title: "Post Detail Page",
                     navOptions: getNav(req.session.user),
                     message: post,
-                    user: userInfo
+                    user: userInfo,
+                    postReplies: postReplies
                 };
+                //console.log(postReplies);
                 res.render("viewPost", model);
             } catch (err) {
                 console.log("Mongo Error in View");

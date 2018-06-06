@@ -24,12 +24,22 @@ router.route("/reloadData").get(
                 var result1 = await db.collection("users").insertMany(fileData.users);
                 var result2 = await db.collection("messages").insertMany(fileData.messages);
                 var message1Id = await db.collection("messages").findOne({ "title": "First post"});
-                await db.collection("replies").insertOne({
+                await db.collection("replies").insertMany([
+                    {
                     "originalThreadId": message1Id._id,
                     "datePosted": dt.format('m/d/Y'),
                     "author": "admin",
+                    "avatar_img":"https://api.adorable.io/avatars/285/abott@adorable.png",
                     "text":"This is a test reply"
-                });
+                    },
+                    {
+                    "originalThreadId": message1Id._id,
+                    "datePosted": dt.format('m/d/Y'),
+                    "author": "admin",
+                    "avatar_img":"https://api.adorable.io/avatars/285/abott@adorable.png",
+                    "text":"This is a second test reply"
+                    }
+                ]);
 
                 res.json([result1, result2]);
             }catch(err){
