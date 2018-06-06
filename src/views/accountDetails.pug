@@ -2,6 +2,7 @@ html
     head
         title= title
         link(rel="stylesheet", href="/css/styles.css")
+        h1= "THE MESSAGE BOARD"
     body
         nav
             each navOption in navOptions
@@ -10,11 +11,20 @@ html
         div(class="accountDetails")
             h1(id="myH1")= title
             p= "Welcome to your account details."
-            ul
-                img(src=currentUser.avatar_img)
-                li= "Username: " + currentUser.username
-                li= "Email: " + currentUser.email
-                li= "Age: " + currentUser.age
-                li= "Role: " + currentUser.type
+            img(src=currentUser.avatar_img)
+            br
+            label Username: 
+            span #{currentUser.username}
+            br
+            label Email: 
+            span #{currentUser.email}
+            br
+            label Age: 
+            span #{currentUser.age}
+            br
+            label Role: 
+            span #{currentUser.type}
+            br
+            br
             a(href='/editAccountDetails') Edit
         script(src="/js/scripts.js")

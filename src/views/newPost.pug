@@ -2,6 +2,7 @@ html
     head
         title= title
         link(rel="stylesheet", href="/css/styles.css")
+        h1= "THE MESSAGE BOARD"
     body
         nav
             each navOption in navOptions
@@ -19,7 +20,6 @@ html
                 label Body:
                 br
                 textarea(id='content', name='body')
-                //- input(type='text', name='body')
                 br
                 input(type='submit', value='Post')
         script(src="/js/scripts.js")

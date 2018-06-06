@@ -2,6 +2,7 @@ html
   head
     title= title
     link(rel="stylesheet", href="/css/styles.css")
+    h1= "THE MESSAGE BOARD"
   body
     nav
       each navOption in navOptions
@@ -17,4 +18,5 @@ html
         label Password:
         br
         input(type='password', name='pass')
+        br
         input(type='submit', value='Login')

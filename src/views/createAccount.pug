@@ -2,6 +2,7 @@ html
   head
     title= title
     link(rel="stylesheet", href="/css/styles.css")
+    h1= "THE MESSAGE BOARD"
   body
     nav
       each navOption in navOptions
@@ -49,5 +50,6 @@ html
         br
         input(type='password', name='confirmPass')
         span= confirmError
+        br
         input(type='submit', value='Create Account')
   script(src="/js/scripts.js")
