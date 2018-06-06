@@ -1,9 +1,12 @@
 html{
     background-color: rgb(201, 202, 204);
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h1{
-    color: rgb(245, 69, 69);
+    color: white;
+    text-shadow: 5px 5px 5px rgb(243, 130, 130);
 }
 
 body{
@@ -25,8 +28,36 @@ p{
     font-size: 18px;
 }
 
+.post{
+    border-top: none;
+    border-bottom: black solid;
+    margin-top: 5px;
+    padding-top: 15px;
+}
+
 .login h1{
     border-bottom: black solid;
+}
+
+.login label{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.login input:nth-of-type(1), input:nth-of-type(2){
+    font-size: 16px;
+    padding: 3px;
+    border: black solid;
+}
+
+.login input:nth-of-type(1):hover, input:nth-of-type(2):hover{
+    background-color: rgb(167, 167, 168);
+    color: white;
+}
+
+.login input:nth-of-type(1):focus, input:nth-of-type(2):focus{
+    background-color: rgb(167, 167, 168);
+    color: white;
 }
 
 .threads a{
@@ -50,9 +81,29 @@ p{
     border-bottom: black solid;
 }
 
+.viewPost h1{
+    border-bottom: black solid;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
 .viewPost label{
     font-size: 20px;
     font-weight: bold;
+}
+
+.viewPost span{
+    font-size: 18px;
+}
+
+.viewPost p{
+    margin-top: 3px;
+    padding-bottom: 5px;
+    font-size: 14px;
+}
+
+.viewPost p:nth-of-type(2){
+    font-size: 18px
 }
 
 .viewPost a{
@@ -62,7 +113,7 @@ p{
     margin-right: 5px;
     padding: 5px;
     color: white;
-    border: 2px black solid;
+    border: black solid;
     border-radius: 4px;
     text-shadow: 0px 1px 1px rgb(11, 179, 123);
     background-color: rgb(66, 184, 221);
@@ -83,6 +134,7 @@ p{
 
 nav{
     margin-top:15px;
+    margin-bottom: 15px;
     background-color: rgb(172, 167, 167);
     border-radius: 10px;
     padding: 10px;
@@ -130,6 +182,31 @@ nav a:hover{
 .accountDetails img{
     height: 150px;
     width: 150px;
+    margin-bottom: 5px;
+}
+
+.accountDetails label{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.accountDetails span{
+    font-size: 17px;
+}
+
+.accountDetails a{
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px;
+    color: white;
+    border: black solid;
+    border-radius: 4px;
+    text-shadow: 0px 1px 1px rgb(11, 179, 123);
+    background-color: rgb(66, 184, 221);
+}
+
+.accountDetails a:hover{
+    background-color: rgb(52, 146, 175);
 }
 
 .editAccountDetails img{
@@ -137,12 +214,19 @@ nav a:hover{
     width: 150px;
 }
 
+#editForm input[type=text], input[type=email], input[type=url]{
+    border: black solid;
+    padding: 3px;
+}
+
 #editForm input[type=text]:hover, input[type=email]:hover, input[type=url]:hover{
     background-color: rgb(167, 167, 168);
+    color: white;
 }
 
 #editForm input[type=text]:focus, input[type=email]:focus, input[type=url]:focus{
     background-color: rgb(142, 142, 143);
+    color: white;
 }
 
 #editForm input:last-child{
@@ -165,6 +249,7 @@ nav a:hover{
 
 #editForm input{
     margin-bottom: 15px;
+    font-size: 16px;
 }
 
 #editForm input[type=url], input[type=radio]{
@@ -178,13 +263,14 @@ nav a:hover{
 .userTable table{
     border-color: black;
     border-style: solid;
+    margin: auto;
+    text-align: center;
 }
 
 .userTable th{
     padding: 5px;
     border-color: black;
     border-style: solid;
-    text-align: center;
     background-color: white;
 }
 
@@ -197,7 +283,7 @@ nav a:hover{
 }
 
 #newPostForm label{
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     margin: auto;
     padding: 5px;
@@ -206,6 +292,9 @@ nav a:hover{
 #newPostForm input:nth-of-type(1){
     height: 30px;
     width: 50%;
+    font-size: 16px;
+    padding: 3px;
+    border: black solid;
 }
 
 #newPostForm input:nth-of-type(2){
@@ -222,30 +311,97 @@ nav a:hover{
     background-color: rgb(52, 146, 175);
 }
 
+input[type=submit]{
+    width: 75px;
+    font-size: 15px;
+    color: white;
+    margin-top: 5px;
+    border-radius: 4px;
+    text-shadow: 0px 1px 1px rgb(11, 179, 123);
+    background-color: rgb(66, 184, 221);
+}
+
+input[type=submit]:hover{
+    background-color: rgb(52, 146, 175);
+}
+
+.editPost label{
+    font-size: 18px;
+    font-weight: bold;
+    margin: auto;
+    padding: 5px;
+}
+
+.editPost input[type=text]{
+    height: 30px;
+    width: 50%;
+    padding: 3px;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none;
+    border: black solid;
+}
+
+.editPost input[type=text]:focus{
+    background-color: rgb(142, 142, 143);
+    color: white;
+}
+
+.editPost input[type=text]:hover{
+    background-color: rgb(167, 167, 168);
+    color: white;
+}
+
+#bodyContent{
+    height: 25%;
+    width: 50%;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none;
+    border: black solid;
+}
+
+#bodyContent:focus{
+    background-color: rgb(142, 142, 143);
+    color: white;
+}
+
+#bodyContent:hover{
+    background-color: rgb(167, 167, 168);
+    color: white;
+}
+
 #content{
     height: 25%;
     width: 50%;
+    font-size: 16px;
     box-sizing: border-box;
     resize: none;
+    border: black solid;
 }
 
 #content:focus{
     background-color: rgb(142, 142, 143);
+    color: white;
 }
 
 #content:hover{
     background-color: rgb(167, 167, 168);
+    color: white;
 }
 
 #newPostForm input:nth-of-type(1):focus{
     background-color: rgb(142, 142, 143);
+    color: white;
 }
 
 #newPostForm input:nth-of-type(1):hover{
     background-color: rgb(167, 167, 168);
+    color: white;
 }
 
 #createAccountForm label{
+    font-size: 16px;
     margin-bottom: 5px;
     padding-bottom: 15px;
     padding-top: 15px;
@@ -256,10 +412,32 @@ nav a:hover{
     padding-bottom: 5px;
 }
 
+#createAccountForm input[type=text], input[type=url], input[type=password], input[type=email]{
+    border: black solid;
+    font-size: 16px;
+    padding: 3px;
+}
+
 #createAccountForm input[type=text]:focus, input[type=url]:focus, input[type=password]:focus, input[type=email]:focus{
     background-color: rgb(142, 142, 143);
+    color: white;
 }
 
 #createAccountForm input[type=text]:hover, input[type=url]:hover, input[type=password]:hover, input[type=email]:hover{
     background-color: rgb(167, 167, 168);
+    color: white;
+}
+
+#createAccountForm input[type=submit]{
+    width: 120px;
+    font-size: 15px;
+    color: white;
+    margin-top: 5px;
+    border-radius: 4px;
+    text-shadow: 0px 1px 1px rgb(11, 179, 123);
+    background-color: rgb(66, 184, 221);
+}
+
+#createAccountForm input[type=submit]:hover{
+    background-color: rgb(52, 146, 175);
 }
