@@ -1,6 +1,8 @@
 var express = require('express');
 var fs = require('fs');
 var mongodb = require('mongodb');
+var dateTime = require('node-datetime');
+var dt = dateTime.create();
 
 var router = express.Router();
 
@@ -24,6 +26,13 @@ router.route("/reloadData").get(
                 
                 var result1 = await db.collection("users").insertMany(fileData.users);
                 var result2 = await db.collection("messages").insertMany(fileData.messages);
+                var message1Id = await db.collection("messages").findOne({ "title": "First post"});
+                await db.collection("replies").insertOne({
+                    "originalThreadId": message1Id._id,
+                    "datePosted": dt.format('m/d/Y'),
+                    "author": "admin",
+                    "text":"This is a test reply"
+                });
 
                 res.json([result1, result2]);
             }catch(err){

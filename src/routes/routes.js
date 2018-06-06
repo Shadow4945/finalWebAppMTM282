@@ -43,13 +43,15 @@ router.route("/").get(
                 var db = client.db(databaseName);
 
                 var posts = await db.collection("messages").find().toArray();
+                var users = await db.collection("users").find().toArray();
 
                 ;
                 //console.log(posts);
                 var data = {
                     title: "Threads",
                     navOptions: getNav(req.session.user),
-                    threads: posts
+                    threads: posts,
+                    users: users
                 };
                 ;
                 //console.log(data);
