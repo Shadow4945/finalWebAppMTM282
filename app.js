@@ -47,10 +47,6 @@ function getNav(user) {
         "path": "/newPost",
         "show": isAuthenticated
     }, {
-        "name": "Logout",
-        "path": "/logout",
-        "show": isAuthenticated
-    }, {
         "name": "Login",
         "path": "/login",
         "show": !isAuthenticated
@@ -62,7 +58,12 @@ function getNav(user) {
         "name": "Reload Data",
         "path": "/admin/reloadData",
         "show": isAdmin
+    },{
+        "name": "Logout",
+        "path": "/logout",
+        "show": isAuthenticated
     }
+
     ];
 }
 
