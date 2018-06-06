@@ -3,6 +3,7 @@ var fs = require('fs');
 var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
 var dateTime = require('node-datetime');
+var bcrypt = require('bcryptjs');
 var dt = dateTime.create();
 
 var mongoClient = mongodb.MongoClient;
@@ -12,6 +13,8 @@ var databaseName = "message_board";
 var currentUser = "";
 
 var router = express.Router();
+
+var salt = 10;
 
 /*Format for posts in database
     title: "x",
@@ -86,15 +89,15 @@ router.route("/login").post(
                     res.redirect("/login");
                 }
 
-                var validLogin = user.password == req.body.pass;
-
-                if (validLogin) {
+                if(bcrypt.compareSync(req.body.pass, user.password)){
                     req.session.user = {
                         isAuthenticated: true,
                         username: req.body.username,
                         isAdmin: user.type.includes("admin")
                     };
                     res.redirect("/");
+                } else {
+                    res.redirect("/login");
                 }
             } catch (err) {
                 console.log(err);
@@ -170,7 +173,6 @@ router.route("/createAccount").post(
                 }
 
 
-
                 var typeOfUser = "user";
                 if (req.body.admin) {
                     typeOfUser = "admin";
@@ -178,15 +180,19 @@ router.route("/createAccount").post(
 
 
                 if (allFieldsValid) {
+                    var hash = bcrypt.hashSync(req.body.newPass, salt);
+
                     var userToAdd = {
                         type: typeOfUser,
                         username: req.body.newUsername,
-                        password: req.body.newPass,
+                        password: hash,
                         avatar_img: req.body.image,
                         email: req.body.email,
                         age: req.body.age
 
                     };
+                    console.log(userToAdd);
+
                     await db.collection("users").insertOne(userToAdd);
                     var model = {
                         title: "Log in",
@@ -336,12 +342,12 @@ router.route("/newPost").post(
                 var client = await mongoClient.connect(url);
 
                 var db = client.db(databaseName);
-                
+
                 var userTitle = req.body.subject;
-                
-                if(userTitle.indexOf("?") > -1){
+
+                if (userTitle.indexOf("?") > -1) {
                     var title = userTitle.replace("?", "");
-                } else{
+                } else {
                     var title = req.body.subject;
                 }
 
