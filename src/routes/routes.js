@@ -345,12 +345,15 @@ router.route("/newPost").post(
                     var title = req.body.subject;
                 }
 
+                var userInfo = await db.collection("users").findOne({ "username": req.session.user.username });
+
                 var newMessage = {
 
                     "title": title,
                     "body": req.body.body,
                     "date_posted": dt.format('m/d/Y'),
-                    "createdBy": req.session.user.username
+                    "createdBy": userInfo.username,
+                    "avatar_img": userInfo.avatar_img
                 };
 
                 await db.collection("messages").insertOne(newMessage);
@@ -466,6 +469,7 @@ router.route("/post/:name").get(
 
                 var post = await db.collection("messages").findOne({ "title": req.params.name });
                 var userInfo = await db.collection("users").findOne({ "username": post.createdBy });
+                var postReplies = await db.collection("replies")
 
                 var model = {
                     title: "Post Detail Page",
