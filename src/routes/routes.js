@@ -381,7 +381,7 @@ router.route("/editPost/:name").get(
                 var currentPost = await db.collection("messages").findOne({ "title": req.params.name });
 
                 var model = {
-                    title: "Account Details",
+                    title: "Edit Your Post",
                     navOptions: getNav(req.session.user),
                     currentPost: currentPost
                 };
