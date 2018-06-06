@@ -337,9 +337,17 @@ router.route("/newPost").post(
 
                 var db = client.db(databaseName);
 
+                var userTitle = req.body.subject;
+                
+                if(userTitle.indexOf("?") > -1){
+                    var title = userTitle.replace("?", ".");
+                } else{
+                    var title = req.body.subject;
+                }
+
                 var newMessage = {
 
-                    "title": req.body.subject,
+                    "title": title,
                     "body": req.body.body,
                     "date_posted": dt.format('m/d/Y'),
                     "createdBy": req.session.user.username
