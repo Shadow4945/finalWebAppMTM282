@@ -347,7 +347,7 @@ router.route("/newPost").post(
                 var client = await mongoClient.connect(url);
 
                 var db = client.db(databaseName);
-
+                
                 var newMessage = {
                     
                     "title":req.body.subject,
@@ -484,7 +484,7 @@ router.route("/post/:name").get(
                 };
                 res.render("viewPost", model);
             } catch (err) {
-                console.log("Mongo Error!");
+                console.log("Mongo Error in View");
                 console.log(err);
                 res.send(err);
             } finally {
