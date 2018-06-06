@@ -8,9 +8,6 @@ var mongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 var databaseName = "message_board";
 
-//TODO: 
-//      Add GET to delete user accounts in the user list
-
 router.route("/reloadData").get(
     function(req, res){
         var fileData = JSON.parse(fs.readFileSync("./src/data/data.json", "utf8"));
@@ -104,7 +101,6 @@ router.route("/userList").get(
                 }
 
             }catch(err){
-                console.log("Error in /users");
                 console.log(err);
                 res.send(err);
             }finally{
@@ -117,7 +113,7 @@ router.route("/userList").get(
 router.route("/deleteUser/:name").get(
     function(req, res){
         var getNav = req.app.get("getNav");
-        //delete from database
+
         (async function mongo(){
             try{
                 var client = await mongoClient.connect(url);
@@ -132,7 +128,6 @@ router.route("/deleteUser/:name").get(
                 
                 res.redirect("/");
             }catch(err){
-                console.log("Error in /deleteUser");
                 console.log(err);
                 res.send(err);
             }finally{

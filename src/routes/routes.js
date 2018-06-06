@@ -44,15 +44,12 @@ router.route("/").get(
 
                 var posts = await db.collection("messages").find().toArray();
 
-                ;
-                //console.log(posts);
                 var data = {
                     title: "Threads",
                     navOptions: getNav(req.session.user),
                     threads: posts
                 };
-                ;
-                //console.log(data);
+
                 res.render("index", data);
             } catch (err) {
                 res.send(err);
@@ -216,12 +213,9 @@ router.route("/createAccount").post(
     }
 );
 
-
-//ACCOUNT DETAILS
 router.route("/accountDetails").get(
     function (req, res) {
         var getNav = req.app.get("getNav");
-        console.log(req.session.user);
 
         (async function mongo() {
             try {
@@ -229,13 +223,12 @@ router.route("/accountDetails").get(
 
                 var db = client.db(databaseName);
 
-                //var currentUser = await db.collection("users").findOne({/*INSERT QUERY HERE*/});
-                var currentUser = await db.collection("users").findOne({"username": req.session.user.username});
-                
+                var currentUser = await db.collection("users").findOne({ "username": req.session.user.username });
+
                 var model = {
                     title: "Account Details",
-                    
-                    navOptions : getNav(req.session.user),
+
+                    navOptions: getNav(req.session.user),
                     currentUser: currentUser
                 };
 
@@ -255,11 +248,9 @@ router.route("/accountDetails").get(
     }
 )
 
-//EDIT ACCOUNT GET
 router.route("/editAccountDetails").get(
     function (req, res) {
         var getNav = req.app.get("getNav");
-        //console.log(req.session.user);
 
         (async function mongo() {
             try {
@@ -267,9 +258,9 @@ router.route("/editAccountDetails").get(
 
                 var db = client.db(databaseName);
 
-                
-                var currentUser = await db.collection("users").findOne({"username":req.session.user.username});
-                
+
+                var currentUser = await db.collection("users").findOne({ "username": req.session.user.username });
+
                 var model = {
                     title: "Account Details",
                     navOptions: getNav(req.session.user),
@@ -291,7 +282,6 @@ router.route("/editAccountDetails").get(
     }
 )
 
-//EDIT ACCOUNT POST
 router.route("/editAccountDetails").post(
     function (req, res) {
 
@@ -301,19 +291,18 @@ router.route("/editAccountDetails").post(
 
                 var db = client.db(databaseName);
 
-                
-                var user = {"username": req.session.user.username};
-                var newValues = {$set: {username: req.body.newUsername, email:req.body.newEmail, age:req.body.newAge}};
-                await db.collection("users").updateOne(user,newValues);
+
+                var user = { "username": req.session.user.username };
+                var newValues = { $set: { username: req.body.newUsername, email: req.body.newEmail, age: req.body.newAge } };
+                await db.collection("users").updateOne(user, newValues);
                 req.session.user.username = req.body.newUsername;
-                
+
 
 
                 res.redirect("/");
 
             } catch (err) {
-                console.log("Mongo Error!");
-                res.send(err);
+                console.log(err);
             } finally {
                 client.close();
             }
@@ -347,10 +336,10 @@ router.route("/newPost").post(
                 var db = client.db(databaseName);
 
                 var newMessage = {
-                    
-                    "title":req.body.subject,
-                    "body":req.body.body,
-                    "date_posted":dt.format('m/d/Y'),
+
+                    "title": req.body.subject,
+                    "body": req.body.body,
+                    "date_posted": dt.format('m/d/Y'),
                     "createdBy": req.session.user.username
                 };
 
@@ -358,7 +347,7 @@ router.route("/newPost").post(
 
                 res.redirect("/");
             } catch (err) {
-                console.log("Mongo Error!");
+                console.log(err);
                 res.send(err);
             } finally {
                 client.close();
@@ -367,7 +356,6 @@ router.route("/newPost").post(
     }
 );
 
-//EDIT POST GET
 router.route("/editPost/:name").get(
     function (req, res) {
         var getNav = req.app.get("getNav");
@@ -393,7 +381,7 @@ router.route("/editPost/:name").get(
 
 
             } catch (err) {
-                console.log("Mongo Error!");
+                console.log(err);
                 res.send(err);
             } finally {
                 client.close();
@@ -402,7 +390,6 @@ router.route("/editPost/:name").get(
     }
 )
 
-//POST EDIT POST
 router.route("/editPost").post(
     function (req, res) {
 
@@ -411,8 +398,6 @@ router.route("/editPost").post(
                 var client = await mongoClient.connect(url);
 
                 var db = client.db(databaseName);
-                console.log(req.body);
-
                 var post = { "title": req.body.originalName };
                 var newValues = { $set: { title: req.body.editSubject, body: req.body.editThread } };
                 await db.collection("messages").updateOne(post, newValues);
@@ -420,7 +405,7 @@ router.route("/editPost").post(
 
                 res.redirect("/");
             } catch (err) {
-                console.log("Mongo Error!");
+                console.log(err);
                 console.log(err);
                 res.send(err);
             } finally {
@@ -431,9 +416,7 @@ router.route("/editPost").post(
 )
 
 router.route("/deletePost/:title").get(
-    function(req, res){
-        console.log("Delete Post!");
-        //console.log(req.params);
+    function (req, res) {
 
         (async function mongo() {
             try {
@@ -441,7 +424,9 @@ router.route("/deletePost/:title").get(
 
                 var db = client.db(databaseName);
 
-                if (req.session.user.isAdmin) {
+                if (req.session.user == undefined) {
+                    res.redirect("/login");
+                } else if (req.session.user.isAdmin) {
                     await db.collection("messages").deleteOne({ "title": req.params.title });
                 } else {
                     var post = await db.collection("messages").findOne({ "title": req.params.title });
@@ -449,11 +434,9 @@ router.route("/deletePost/:title").get(
                         await db.collection("messages").deleteOne({ "title": req.params.title });
                     }
                 }
-
-
                 res.redirect("/");
             } catch (err) {
-                console.log("Mongo Error!");
+                console.log(err);
                 res.send(err);
             } finally {
                 client.close();
@@ -482,7 +465,7 @@ router.route("/post/:name").get(
                 };
                 res.render("viewPost", model);
             } catch (err) {
-                console.log("Mongo Error!");
+                console.log(err);
                 console.log(err);
                 res.send(err);
             } finally {

@@ -21,7 +21,7 @@ var checkAuth = function (req, res, next) {
         res.redirect('/');
     }
 }
-//TODO: Set up nav bar here based on current user
+
 function getNav(user) {
     var isAdmin = false;
     var isAuthenticated = false;
