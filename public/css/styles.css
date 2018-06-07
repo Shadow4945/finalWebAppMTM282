@@ -33,7 +33,16 @@ p{
     margin: auto;
     padding-top: 15px;
     text-align: left;
-    left: 50%;
+}
+
+.post p:nth-of-type(1), p:nth-of-type(2){
+    position: relative;
+    padding-left: 38%;
+}
+
+.postTitle{
+    position: relative;
+    padding-left: 38%;
 }
 
 .login h1{
@@ -86,6 +95,10 @@ p{
     border-bottom: black solid;
 }
 
+.viewPost{
+    text-align: center;
+}
+
 .viewPost h1{
     border-bottom: black solid;
     margin-top: 10px;
@@ -107,8 +120,9 @@ p{
     font-size: 14px;
 }
 
-.viewPost p:nth-of-type(2){
-    font-size: 18px
+#pThread{
+    text-align: left;
+    font-size: 16px;
 }
 
 .viewPost a{
@@ -374,7 +388,13 @@ input[type=submit]:hover{
     border: none;
 }
 
+.postReplies p:first-child{
+    font-size: 16px;
+    text-align: center;
+}
+
 .postReplies p{
+    text-align: left;
     font-size: 16px;
 }
 

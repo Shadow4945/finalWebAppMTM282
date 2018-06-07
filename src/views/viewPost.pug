@@ -15,10 +15,10 @@ html
             p
                 | Posted by: 
                 | #{user.username} 
-                img(src=user.avatar_img)
+                img(src=user.avatarImg)
                 |  on #{message.date_posted}
             label Thread:
-            p
+            p(id='pThread')
                 | #{message.body}
             div(class="postReplies")
                 each reply in postReplies
