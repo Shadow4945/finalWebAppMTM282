@@ -20,8 +20,12 @@ html
             label Thread:
             p
                 | #{message.body}
-            each reply in postReplies
-                p #{reply.text}
+            div(class="postReplies")
+                each reply in postReplies
+                    p #{reply.text}
+            form(class='replies', name='replies', action='/viewPost')
+                textarea(id='replyContent', name='replyPost', placeholder="Enter a comment...")
             a(href='/editPost/' + message.title) Edit
             a(href='/deletePost/' + message.title) Delete
+            input(type='submit', value="Post Comment")
         script(src="/js/scripts.js")

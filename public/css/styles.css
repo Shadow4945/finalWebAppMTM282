@@ -30,9 +30,10 @@ p{
 
 .post{
     border-top: none;
-    border-bottom: black solid;
-    margin-top: 5px;
+    margin: auto;
     padding-top: 15px;
+    text-align: left;
+    left: 50%;
 }
 
 .login h1{
@@ -58,6 +59,10 @@ p{
 .login input:nth-of-type(1):focus, input:nth-of-type(2):focus{
     background-color: rgb(167, 167, 168);
     color: white;
+}
+
+.threads p:last-of-type{
+    border-bottom: black solid;
 }
 
 .threads a{
@@ -111,6 +116,19 @@ p{
     font-size: 14px;
     margin-top: 5px;
     margin-right: 5px;
+    padding: 5px;
+    color: white;
+    border: black solid;
+    border-radius: 4px;
+    text-shadow: 0px 1px 1px rgb(11, 179, 123);
+    background-color: rgb(66, 184, 221);
+}
+
+.viewPost input[type=submit]{
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 5px;
+    width: 125px;
     padding: 5px;
     color: white;
     border: black solid;
@@ -348,6 +366,33 @@ input[type=submit]:hover{
 }
 
 .editPost input[type=text]:hover{
+    background-color: rgb(167, 167, 168);
+    color: white;
+}
+
+.postReplies{
+    border: none;
+}
+
+.postReplies p{
+    font-size: 16px;
+}
+
+#replyContent{
+    height: 5%;
+    width: 35%;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none;
+    border: black solid;
+}
+
+#replyContent:focus{
+    background-color: rgb(142, 142, 143);
+    color: white;
+}
+
+#replyContent:hover{
     background-color: rgb(167, 167, 168);
     color: white;
 }
